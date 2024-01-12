@@ -1,0 +1,16 @@
+hmtl{
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+*, *::before,*::after{
+  box-sizing: inherit;
+}
+
+body{
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: hsl(0, 0%, 11%);
+  color: hsl(0, 0%, 100%);
+  line-height: 1.5;
+  font-weight: 400;
+}
