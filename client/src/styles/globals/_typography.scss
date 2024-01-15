@@ -1,3 +1,5 @@
+@use '../utils/' as *;
+
 h1,
 h2,
 h3 {
@@ -6,8 +8,19 @@ h3 {
   margin-top: 0;
 }
 
+h1{
+  // font-size: clamp(1.75rem, 1rem + 2vw, 2.62rem);
+  font-size: clamp(rem(28), rem(16) + 2vw, rem(42));
+}
+
+h2{
+  // font-size: clamp(1.62rem, 0.88rem + 2vw, 2.5rem);
+  font-size: clamp(rem(26), rem(14) + 2vw, rem(40));
+}
+
 p {
   margin-top: 0;
+  font-size: rem(16);
 }
 
 a,
@@ -15,3 +28,5 @@ a:visited,
 a:active {
   text-decoration: none;
 }
+
+//Size fact:  px = absolute ; rem = relative to system size ; em = relative to parent element size ; base size = 16px

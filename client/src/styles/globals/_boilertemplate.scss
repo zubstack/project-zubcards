@@ -1,6 +1,4 @@
-@use './variables' as *;
-
-hmtl{
+html{
   box-sizing: border-box;
   font-size: 100%;
 }
@@ -10,9 +8,11 @@ hmtl{
 }
 
 body{
+  margin: 0;
+  padding: 0;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   // background-color: hsl(0, 0%, 11%);
-  background-color: $body-bg;
+  // background-color: $body-bg;
   color: hsl(0, 0%, 100%);
   line-height: 1.5;
   font-weight: 400;
