@@ -1,124 +1,103 @@
 @use '../styles/globals/' as *;
 @use '../styles/utils/' as *;
 
-nav {
-  background: $nav-bg-dark;
+#logo {
+  flex: 1;
+  font-weight: bold;
   display: flex;
   align-items: center;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
-}
 
-.menu {
-  padding: 0 rem(40);
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-
-  &__item a {
+  & a {
     color: white;
   }
 }
 
-// h1,h2,h3{
-//   margin: 0;
-// }
+nav {
+  background: $nav-bg-dark;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
+  font-size: rem(16);
 
-// a {
-//   color: white;
-//   text-decoration: none;
-// }
+  @include breakpoint(medium) {
+    font-size: rem(18);
+  }
 
-// .menu,
-// .submenu {
-//   list-style-type: none;
-// }
+  @include breakpoint(large) {
+    font-size: rem(20);
+  }
+}
 
-// .brand {
-//   font-size: 20px;
-//   padding: 7.5px 10px 7.5px 0;
-// }
+.menu {
+  padding: 0 calc(rem(16) + 2vw);
+  width: 100%;
+  display: flex;
+  // justify-content: space-between;
+  flex: 1;
 
-// .item {
-//   padding: 10px;
-// }
+  &__item {
+    display: flex;
+    align-items: center;
+    margin-right: rem(40);
+    display: none;
 
-// .item.button {
-//   padding: 9px 5px;
-// }
+    @include breakpoint(medium) {
+      display: flex;
+    }
+  }
 
-// .item:not(.button) a:hover,
-// .item a:hover::after {
-//   color: gray;
-// }
+  &__item a {
+    color: white;
+    font-weight: 400;
+  }
+}
 
-// /*Mobile styles*/
+.dropdown {
+  &__icon {
+    background-color: white;
+    color: $nav-bg-dark;
+    border-radius: 50%;
+    padding: rem(2);
+    font-size: rem(40);
+    transition: .3s ease-in;
+    position: relative;
+    cursor: pointer;
+  }
 
-// .menu {
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: space-between;
-//   align-items: center;
-// }
+  &__icon:hover {
+    outline: 10px solid rgb(82, 82, 82);
+    transition: .3s ease-out;
+  }
 
-// .menu li a {
-//   display: block;
-//   padding: 15px 5px;
-// }
+  &__menu {
+    background-color: white;
+    color: $nav-bg-dark;
+    position: absolute;
+    top: rem(72);
+    right: -100%;
+    cursor: pointer;
+    border-radius: 0px 0px 0px 10px;
+    padding: 0;
 
-// .menu li.subitem a {
-//   padding: 15px;
-// }
+    @include breakpoint(medium) {
+      top: rem(76);
+    }
 
-// .toggle {
-//   order: 1;
-// }
+    @include breakpoint(large) {
+      top: rem(80);
+    }
 
-// .item.button {
-//   order: 2;
-// }
+    &--active {
+      right: 0;
+    }
 
-// .item {
-//   order: 3;
-//   width: 100%;
-//   text-align: center;
-//   display: none;
-// }
+    &__item {
+      padding: rem(12) rem(40);
+      width: 100%;
+    }
 
-// .active .item {
-//   display: block;
-// }
-
-// .button.secondary {
-//   border-bottom: 1px solid white;
-// }
-
-// .submenu {
-//   display: none;
-// }
-
-// .submenu-active .submenu {
-//   display: block;
-//   width: 100%;
-// }
-
-// .has-submenu li {
-//   font-size: 20px;
-// }
-
-// .has-submenu > a::after {
-//   font-family: "Font Awesome 5 Free";
-//   font-size: 12px;
-//   line-height: 16px;
-//   font-weight: 900;
-//   content: "\f078";
-//   color: white;
-//   padding-left: 5px;
-// }
-
-// .subitem a {
-//   padding: 10px 15px;
-// }
-
-// .submenu-active {
-//   background-color: black;
-// }
+    &__item:hover {
+      background-color: rgb(215, 215, 215);
+    }
+  }
+}
