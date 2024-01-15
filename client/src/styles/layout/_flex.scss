@@ -1,0 +1,7 @@
+@use '../utils' as *;
+
+
+.flex{
+  display: flex;
+  gap: rem(24);
+}

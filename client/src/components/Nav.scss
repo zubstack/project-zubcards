@@ -1,0 +1,124 @@
+@use '../styles/globals/' as *;
+@use '../styles/utils/' as *;
+
+nav {
+  background: $nav-bg-dark;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+
+.menu {
+  padding: 0 rem(40);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  &__item a {
+    color: white;
+  }
+}
+
+// h1,h2,h3{
+//   margin: 0;
+// }
+
+// a {
+//   color: white;
+//   text-decoration: none;
+// }
+
+// .menu,
+// .submenu {
+//   list-style-type: none;
+// }
+
+// .brand {
+//   font-size: 20px;
+//   padding: 7.5px 10px 7.5px 0;
+// }
+
+// .item {
+//   padding: 10px;
+// }
+
+// .item.button {
+//   padding: 9px 5px;
+// }
+
+// .item:not(.button) a:hover,
+// .item a:hover::after {
+//   color: gray;
+// }
+
+// /*Mobile styles*/
+
+// .menu {
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: space-between;
+//   align-items: center;
+// }
+
+// .menu li a {
+//   display: block;
+//   padding: 15px 5px;
+// }
+
+// .menu li.subitem a {
+//   padding: 15px;
+// }
+
+// .toggle {
+//   order: 1;
+// }
+
+// .item.button {
+//   order: 2;
+// }
+
+// .item {
+//   order: 3;
+//   width: 100%;
+//   text-align: center;
+//   display: none;
+// }
+
+// .active .item {
+//   display: block;
+// }
+
+// .button.secondary {
+//   border-bottom: 1px solid white;
+// }
+
+// .submenu {
+//   display: none;
+// }
+
+// .submenu-active .submenu {
+//   display: block;
+//   width: 100%;
+// }
+
+// .has-submenu li {
+//   font-size: 20px;
+// }
+
+// .has-submenu > a::after {
+//   font-family: "Font Awesome 5 Free";
+//   font-size: 12px;
+//   line-height: 16px;
+//   font-weight: 900;
+//   content: "\f078";
+//   color: white;
+//   padding-left: 5px;
+// }
+
+// .subitem a {
+//   padding: 10px 15px;
+// }
+
+// .submenu-active {
+//   background-color: black;
+// }
