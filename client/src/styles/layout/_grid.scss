@@ -1,0 +1,42 @@
+@use "../globals" as *;
+@use '../utils' as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  gap: rem(40);
+  width: min(100% - rem(40), rem(1000));
+  margin-inline: auto;
+  padding:0 rem(20);
+
+  @include breakpoint(large) {
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+  }
+
+}
+// &__main,
+// &__sidebar {
+//   padding: rem(40);
+// }
+
+// &__main {
+//   background-color: orange;
+// }
+
+// &__sidebar {
+//   @include breakpoint-down(large){
+//     text-align: center;
+//   }
+// }
+// &__widget{
+
+//   background-color: $body-bg;
+//   padding: rem(16);
+
+//   &--green{
+//     @extend .grid__widget;
+//   background-color: $success;
+//   }
+// }
