@@ -74,10 +74,11 @@ nav {
     color: $nav-bg-dark;
     position: absolute;
     top: rem(72);
-    right: -100%;
+    right: 0;
     cursor: pointer;
     border-radius: 0px 0px 0px 10px;
     padding: 0;
+    display: none;
 
     @include breakpoint(medium) {
       top: rem(76);
@@ -88,8 +89,7 @@ nav {
     }
 
     &--active {
-      right: 0;
-    }
+display: block;    }
 
     &__item {
       padding: rem(12) rem(40);
