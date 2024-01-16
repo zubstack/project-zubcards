@@ -9,6 +9,15 @@
 
   & a {
     color: white;
+    font-size: rem(16);
+
+    @include breakpoint(medium) {
+      font-size: rem(18);
+    }
+
+    @include breakpoint(large) {
+      font-size: rem(20);
+    }
   }
 }
 
@@ -17,15 +26,7 @@ nav {
   display: flex;
   align-items: center;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
-  font-size: rem(16);
 
-  @include breakpoint(medium) {
-    font-size: rem(18);
-  }
-
-  @include breakpoint(large) {
-    font-size: rem(20);
-  }
 }
 
 .menu {
@@ -49,6 +50,7 @@ nav {
   &__item a {
     color: white;
     font-weight: 400;
+    font-size: rem(14);
   }
 }
 
@@ -73,19 +75,20 @@ nav {
     background-color: white;
     color: $nav-bg-dark;
     position: absolute;
-    top: rem(72);
+    top: rem(71);
     right: 0;
     cursor: pointer;
     border-radius: 0px 0px 0px 10px;
     padding: 0;
     display: none;
+    font-size: rem(14);
 
     @include breakpoint(medium) {
-      top: rem(76);
+      top: rem(70);
     }
 
     @include breakpoint(large) {
-      top: rem(80);
+      top: rem(72);
     }
 
     &--active {
