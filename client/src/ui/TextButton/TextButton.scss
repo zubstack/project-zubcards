@@ -1,0 +1,9 @@
+.text__button {
+  background-color: transparent;
+  color: rgb(94, 94, 94);
+
+  &:hover {
+    background-color: rgb(178, 178, 178);
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,77 @@
+@use '../../styles/utils/' as *;
+@use '../../styles/globals/' as *;
+
+// * {
+//   border: 1px solid;
+// }
+
+td,
+th {
+  padding: rem(12);
+  font-size: clamp(rem(12), rem(5) + 1vw, rem(20));
+}
+
+#decks_dashboard {
+  width: clamp(rem(320), rem(150) + 50vw, rem(1000));
+  margin-top: 4rem;
+}
+
+.dashboard {
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+  }
+
+  &__container {
+    background-color: #dddddd;
+    width: clamp(rem(312), rem(220) + 30vw, rem(700));
+    margin: auto;
+    border-collapse: collapse;
+  }
+
+  &__headers {
+    border-bottom: 1px solid rgb(168, 168, 168);
+  }
+
+  &__items {
+    &:hover {
+      cursor: pointer;
+      background-color: #c3c3c3;
+    }
+
+    &--green {
+      color: rgb(96, 161, 0);
+    }
+
+    &--red {
+      color: rgb(161, 0, 62);
+    }
+
+    &--blue {
+      color: rgb(0, 48, 161);
+    }
+  }
+
+  &__topic {
+    text-align: left;
+    width: 80%;
+    padding-left: rem(10);
+
+    @include breakpoint(medium) {
+      padding-left: rem(40);
+
+    }
+  }
+
+  &__last {
+    padding-right: rem(10);
+
+
+    @include breakpoint(medium) {
+      padding-right: rem(40);
+    }
+  }
+}
