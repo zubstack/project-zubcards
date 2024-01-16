@@ -1,13 +1,33 @@
-import './App.scss'
-import Home from './pages/Home/Home'
+import { BrowserRouter, useRoutes } from "react-router-dom";
+import "./App.scss";
+import Home from "./pages/Home/Home";
+import Nav from "./components/Nav";
+import BaseLayout from "./layout/BaseLayout";
+import Decks from "./pages/Decks/Decks";
 
-function App() {
-
-  return (
-    <>
-     <Home/>
-    </>
-  )
+function AppRoutes() {
+  const routes = useRoutes([
+    {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "/decks",
+      element: <Decks />,
+    },
+  ]);
+  return routes;
 }
 
-export default App
+function App() {
+  return (
+    <BrowserRouter>
+      <Nav />
+      <BaseLayout>
+        <AppRoutes />
+      </BaseLayout>
+    </BrowserRouter>
+  );
+}
+
+export default App;
