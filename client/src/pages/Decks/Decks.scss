@@ -33,13 +33,13 @@ th {
   }
 
   &__headers {
-    border-bottom: 1px solid rgb(168, 168, 168);
+    border-bottom: 1px solid rgb(193, 193, 193);
   }
 
   &__items {
     &:hover {
       cursor: pointer;
-      background-color: #c3c3c3;
+      background-color: #cccccc;
     }
 
     &--green {
@@ -72,6 +72,21 @@ th {
 
     @include breakpoint(medium) {
       padding-right: rem(40);
+    }
+  }
+}
+
+.options {
+  position: relative;
+
+  &__menu {
+    position: absolute;
+    z-index: 100;
+    background-color: #dddddd;
+    display: none;
+
+    &--active {
+      display: block;
     }
   }
 }

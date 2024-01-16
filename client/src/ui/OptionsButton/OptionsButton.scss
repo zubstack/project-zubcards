@@ -1,0 +1,11 @@
+@use '../../styles/utils/' as *;
+
+.options__button {
+  font-size: rem(12);
+  width: 100%;
+  border: 1px solid #aaaa;
+
+  &:hover {
+    background-color: #cccc;
+  }
+}

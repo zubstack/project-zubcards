@@ -1,9 +1,3 @@
-.text__button {
-  background-color: transparent;
-  color: rgb(94, 94, 94);
+@use '../../styles/utils/' as *;
 
-  &:hover {
-    background-color: rgb(178, 178, 178);
-    text-decoration: underline;
-  }
-}
+.text__button {}
