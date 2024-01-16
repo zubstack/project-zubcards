@@ -26,9 +26,10 @@ th {
   }
 
   &__container {
-    background-color: #dddddd;
+    background-color: $white;
     width: clamp(rem(312), rem(220) + 30vw, rem(700));
     margin: auto;
+    margin-bottom: 4rem;
     border-collapse: collapse;
   }
 
@@ -39,7 +40,7 @@ th {
   &__items {
     &:hover {
       cursor: pointer;
-      background-color: #cccccc;
+      background-color: $hover-white;
     }
 
     &--green {
@@ -80,9 +81,10 @@ th {
   position: relative;
 
   &__menu {
+    border: 1px solid #2e2e2eaa;
     position: absolute;
     z-index: 100;
-    background-color: #dddddd;
+    background-color: $white;
     display: none;
 
     &--active {

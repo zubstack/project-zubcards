@@ -1,11 +1,13 @@
 @use '../../styles/utils/' as *;
+@use '../../styles/globals/' as *;
 
 .options__button {
   font-size: rem(12);
   width: 100%;
-  border: 1px solid #aaaa;
+
 
   &:hover {
-    background-color: #cccc;
+    background-color: $hover-white;
+    text-decoration: none;
   }
 }
