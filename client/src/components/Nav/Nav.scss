@@ -1,5 +1,5 @@
-@use '../styles/globals/' as *;
-@use '../styles/utils/' as *;
+@use '../../styles/globals/' as *;
+@use '../../styles/utils/' as *;
 
 #logo {
   flex: 1;
@@ -89,7 +89,8 @@ nav {
     }
 
     &--active {
-display: block;    }
+      display: block;
+    }
 
     &__item {
       padding: rem(12) rem(40);

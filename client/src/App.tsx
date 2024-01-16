@@ -1,7 +1,7 @@
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import "./App.scss";
 import Home from "./pages/Home/Home";
-import Nav from "./components/Nav";
+import Nav from "./components/Nav/Nav";
 import BaseLayout from "./layout/BaseLayout";
 import Decks from "./pages/Decks/Decks";
 

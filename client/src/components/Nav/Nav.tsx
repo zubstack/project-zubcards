@@ -1,6 +1,7 @@
 import { FaUserLarge } from "react-icons/fa6";
 import "./Nav.scss";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Nav() {
   const [openToggle, setOpenToggle] = useState(null);
@@ -15,13 +16,13 @@ function Nav() {
   return (
     <nav>
       <ul className="menu">
-        <li id="logo" >
-          <a href="">Zubcards</a>
+        <li id="logo">
+          <Link to="/">Zubcards</Link>
         </li>
         <li className="menu__item">
-          <a href="">Decks</a>
+          <Link to="/decks">Decks</Link>
         </li>
-        <li >
+        <li>
           <div className="dropdown flex" ref={menuRef}>
             <FaUserLarge
               onClick={(): void => setOpenToggle(!openToggle)}
