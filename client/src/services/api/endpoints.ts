@@ -4,6 +4,7 @@ const endpoints = {
   getDecks: `${API_URL}/decks`,
   createDeck: `${API_URL}/decks`,
   deleteDeck: (id) => `${API_URL}/decks/${id}`,
+  updateDeck: (id) => `${API_URL}/decks/${id}`,
 };
 
 export default endpoints;

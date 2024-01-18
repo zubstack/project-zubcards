@@ -10,6 +10,7 @@ import endpoints from "../../services/api/endpoints";
 function Decks() {
   const [decks, setDecks] = useState(null);
   const [isDecksCreateModalOpen, setDecksCreateModalOpen] = useState(null);
+  const [editId, setEditId] = useState(null);
 
   const optionsRef = useRef();
 
@@ -31,8 +32,9 @@ function Decks() {
     setDecksCreateModalOpen(false);
   }
 
-  function handleEdit() {
-    console.log("edit");
+  function handleEdit(id) {
+    setEditId(id);
+    handleOpenDecksCreateModal();
   }
   async function handleDelete(id) {
     await axios.delete(endpoints.deleteDeck(id));
@@ -86,7 +88,9 @@ function Decks() {
                   <div onClick={handleToggle} className="options">
                     <RiSettings5Fill />
                     <div className="options__menu">
-                      <OptionsButton onClick={handleEdit}>Edit</OptionsButton>
+                      <OptionsButton onClick={() => handleEdit(deck.id)}>
+                        Edit
+                      </OptionsButton>
                       <OptionsButton onClick={() => handleDelete(deck.id)}>
                         Delete
                       </OptionsButton>
@@ -104,6 +108,8 @@ function Decks() {
         isOpen={isDecksCreateModalOpen}
         onClose={closeOpenDecksCreateModal}
         fetchData={fetchData}
+        editId={editId}
+        setEditId={setEditId}
       />
     </div>
   );
