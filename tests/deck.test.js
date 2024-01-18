@@ -29,8 +29,16 @@ describe('Decks: Getters', () => {
 
   test('there are one Deck', async () => {
     const response = await api.get(url);
-
     expect(response.body).toHaveLength(1);
+  });
+
+  test('decks has learn, new and due properties', async () => {
+    const { body } = await api.get(url);
+    body.forEach((element) => {
+      expect(element.new).toBeDefined();
+      expect(element.learn).toBeDefined();
+      expect(element.due).toBeDefined();
+    });
   });
 
   test('get an specific Deck', async () => {
@@ -42,11 +50,9 @@ describe('Decks: Getters', () => {
   test('get an specific Deck including their cards', async () => {
     const id = seed.decks.ultimates.id;
     const { body } = await api.get(`${url}/cards/${id}`);
-    const {cards} = body
-    const questions = cards.map(card => card.question)
-    expect(questions).toContain(
-      'Mordekaiser'
-    )
+    const { cards } = body;
+    const questions = cards.map((card) => card.question);
+    expect(questions).toContain('Mordekaiser');
   });
 });
 describe('Decks: Setters', () => {

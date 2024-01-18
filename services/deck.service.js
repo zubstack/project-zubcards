@@ -5,8 +5,27 @@ const { Deck } = models;
 class DeckService {
   constructor() {}
   async find() {
-    const data = await Deck.findAll();
-    return data;
+    const data = await Deck.findAll({
+      include: 'cards',
+    });
+    const decks = data.map((deck) => deck.get({ plain: true }));
+
+    decks.forEach((element) => {
+      element.new = 0;
+      element.learn = 0;
+      element.due = 0;
+      element.cards.forEach((card) => {
+        if (card.domain === 1) {
+          element.new += 1;
+        } else if (card.domain === 2) {
+          element.learn += 1;
+        } else if (card.domain === 3) {
+          element.due += 1;
+        }
+      });
+      delete element.cards;
+    });
+    return decks;
   }
   async getCards(id) {
     const data = await Deck.findOne({
