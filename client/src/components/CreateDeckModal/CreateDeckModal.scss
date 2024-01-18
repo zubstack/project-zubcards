@@ -1,0 +1,18 @@
+@use '../../styles/globals/' as *;
+
+.form {
+
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    margin-bottom: 2rem;
+  }
+
+  &__options {
+    position: absolute;
+    top: 60%;
+    right: 0;
+  }
+}

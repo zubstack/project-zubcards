@@ -1,42 +1,19 @@
-import { useEffect, useRef } from "react";
-import TextButton from "../../ui/TextButton/TextButton";
 import "./Decks.scss";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import { RiSettings5Fill } from "react-icons/ri";
+import TextButton from "../../ui/TextButton/TextButton";
 import OptionsButton from "../../ui/OptionsButton/OptionsButton";
-
-const decks = [
-  {
-    topic: "ultimates",
-    new: 1,
-    learn: 2,
-    due: 3,
-  },
-  {
-    topic: "fruits",
-    new: 1,
-    learn: 2,
-    due: 3,
-  },
-  {
-    topic: "frusits",
-    new: 1,
-    learn: 2,
-    due: 3,
-  },
-  {
-    topic: "fruitds",
-    new: 1,
-    learn: 2,
-    due: 3,
-  },
-];
+import CreateDeckModal from "../../components/CreateDeckModal/CreateDeckModal";
+import endpoints from "../../services/api/endpoints";
 
 function Decks() {
+  const [decks, setDecks] = useState(null);
+  const [isDecksCreateModalOpen, setDecksCreateModalOpen] = useState(null);
+
   const optionsRef = useRef();
 
   function handleToggle(event) {
-    // console.log("optionsRef", event.currentTarget.contains(optionsRef.current));
-    // console.log("classlist", optionsRef.current?.classList);
     if (!event.currentTarget.contains(optionsRef.current)) {
       optionsRef.current?.classList.remove("options__menu--active");
     }
@@ -46,14 +23,33 @@ function Decks() {
     optionsRef.current = optionsMenu;
   }
 
+  function handleOpenDecksCreateModal() {
+    setDecksCreateModalOpen(true);
+  }
+
+  function closeOpenDecksCreateModal() {
+    setDecksCreateModalOpen(false);
+  }
+
   function handleEdit() {
     console.log("edit");
   }
-  function handleDelete() {
-    console.log("Delete");
+  async function handleDelete(id) {
+    await axios.delete(endpoints.deleteDeck(id));
+    console.log("deleted");
+    await fetchData();
   }
 
+  async function fetchData() {
+    try {
+      const { data } = await axios.get(endpoints.getDecks);
+      setDecks(data);
+    } catch (error) {
+      error;
+    }
+  }
   useEffect(() => {
+    fetchData();
     document.addEventListener("mousedown", (event) => {
       if (!optionsRef.current?.contains(event.target)) {
         optionsRef.current?.classList.remove("options__menu--active");
@@ -65,37 +61,50 @@ function Decks() {
     <div id="decks_dashboard">
       <div className="dashboard__top">
         <h2>Dashboard</h2>
-        <TextButton onClick={handleDelete}>Create deck</TextButton>
+        <TextButton onClick={handleOpenDecksCreateModal}>
+          Create deck
+        </TextButton>
       </div>
-      <table className="dashboard__container">
-        <thead className="dashboard__headers">
-          <tr>
-            <th className="dashboard__topic">Deck</th>
-            <th>New</th>
-            <th>Learn</th>
-            <th className="dashboard__last">Due</th>
-          </tr>
-        </thead>
-        {decks.map((deck) => (
-          <tbody className="dashboard__items" key={deck.topic}>
+      {decks ? (
+        <table className="dashboard__container">
+          <thead className="dashboard__headers">
             <tr>
-              <td className="dashboard__topic">{deck.topic}</td>
-              <td className="dashboard__items--blue">{deck.new}</td>
-              <td className="dashboard__items--red">{deck.learn}</td>
-              <td className="dashboard__items--green">{deck.due}</td>
-              <td className="dashboard__last ">
-                <div onClick={handleToggle} className="options">
-                  <RiSettings5Fill />
-                  <div className="options__menu">
-                    <OptionsButton onClick={handleEdit}>Edit</OptionsButton>
-                    <OptionsButton onClick={handleDelete}>Delete</OptionsButton>
-                  </div>
-                </div>
-              </td>
+              <th className="dashboard__topic">Deck</th>
+              <th>New</th>
+              <th>Learn</th>
+              <th className="dashboard__last">Due</th>
             </tr>
-          </tbody>
-        ))}
-      </table>
+          </thead>
+          {decks.map((deck) => (
+            <tbody className="dashboard__items" key={deck.topic}>
+              <tr>
+                <td className="dashboard__topic">{deck.topic}</td>
+                <td className="dashboard__items--blue">{deck.new}</td>
+                <td className="dashboard__items--red">{deck.learn}</td>
+                <td className="dashboard__items--green">{deck.due}</td>
+                <td className="dashboard__last ">
+                  <div onClick={handleToggle} className="options">
+                    <RiSettings5Fill />
+                    <div className="options__menu">
+                      <OptionsButton onClick={handleEdit}>Edit</OptionsButton>
+                      <OptionsButton onClick={() => handleDelete(deck.id)}>
+                        Delete
+                      </OptionsButton>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
+      ) : (
+        <p>No content to show</p>
+      )}
+      <CreateDeckModal
+        isOpen={isDecksCreateModalOpen}
+        onClose={closeOpenDecksCreateModal}
+        fetchData={fetchData}
+      />
     </div>
   );
 }

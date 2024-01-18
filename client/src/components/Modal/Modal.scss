@@ -1,0 +1,11 @@
+@use '../../styles/globals/' as *;
+@use '../../styles/utils/' as *;
+
+
+#modal {
+  width: clamp(rem(350), rem(280) + 20vw, rem(470)); //min no working
+  background-color: $white;
+  position: relative;
+  padding: 1rem 2rem;
+  border: 1px solid $nav-bg-dark;
+}
