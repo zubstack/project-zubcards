@@ -1,3 +1,9 @@
 @use '../../styles/utils/' as *;
+@use '../../styles/globals/' as *;
 
-.text__button {}
+.text__button {
+
+  &--red {
+    color: $danger;
+  }
+}

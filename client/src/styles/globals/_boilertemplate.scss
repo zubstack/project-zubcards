@@ -24,3 +24,13 @@ body {
 li {
   list-style: none;
 }
+
+input {
+  padding: 4px;
+  color: $nav-bg-dark
+}
+
+input:focus {
+
+  outline: $dark;
+}
