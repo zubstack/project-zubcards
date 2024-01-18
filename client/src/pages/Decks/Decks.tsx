@@ -6,6 +6,8 @@ import TextButton from "../../ui/TextButton/TextButton";
 import OptionsButton from "../../ui/OptionsButton/OptionsButton";
 import CreateDeckModal from "../../components/CreateDeckModal/CreateDeckModal";
 import endpoints from "../../services/api/endpoints";
+import { Link } from "react-router-dom";
+import PageLayout from "../../layout/PageLayout/PageLayout";
 
 function Decks() {
   const [decks, setDecks] = useState(null);
@@ -60,7 +62,7 @@ function Decks() {
   }, []);
 
   return (
-    <div id="decks_dashboard">
+    <PageLayout>
       <div className="dashboard__top">
         <h2>Dashboard</h2>
         <TextButton onClick={handleOpenDecksCreateModal}>
@@ -80,7 +82,9 @@ function Decks() {
           {decks.map((deck) => (
             <tbody className="dashboard__items" key={deck.topic}>
               <tr>
-                <td className="dashboard__topic">{deck.topic}</td>
+                <td className="dashboard__topic">
+                  <Link to={`/cards?deckId=${deck.id}`}>{deck.topic}</Link>
+                </td>
                 <td className="dashboard__items--blue">{deck.new}</td>
                 <td className="dashboard__items--red">{deck.learn}</td>
                 <td className="dashboard__items--green">{deck.due}</td>
@@ -111,7 +115,7 @@ function Decks() {
         editId={editId}
         setEditId={setEditId}
       />
-    </div>
+    </PageLayout>
   );
 }
 

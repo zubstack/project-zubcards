@@ -1,0 +1,111 @@
+import { useEffect, useState } from "react";
+import "./Cards.scss";
+import axios from "axios";
+import endpoints from "../../services/api/endpoints";
+import { useSearchParams } from "react-router-dom";
+import PageLayout from "../../layout/PageLayout/PageLayout";
+import TextButton from "../../ui/TextButton/TextButton";
+import Button from "../../ui/Button/Button";
+import { FaPlay } from "react-icons/fa6";
+
+function Cards() {
+  const [cards, setCards] = useState([]);
+  console.log("Initial cards", typeof cards, cards);
+
+  const [currentDeck, setCurrentDeck] = useState(null);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const deckId = searchParams.get("deckId");
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await axios.get(endpoints.getCardsFromDeck(deckId));
+      setCurrentDeck(data.deck);
+      setCards(data.cards);
+    }
+    fetchData();
+    console.log("After cards", typeof cards, cards);
+  }, []);
+
+  // Convert Javascript date to Pg YYYY MM DD HH MI SS
+
+  function pgFormatDate(date) {
+    function zeroPad(d) {
+      return ("0" + d).slice(-2);
+    }
+
+    let parsed = new Date(date);
+
+    return [
+      parsed.getUTCFullYear(),
+      "-",
+      zeroPad(parsed.getMonth() + 1),
+      "-",
+      zeroPad(parsed.getDate()),
+      " ",
+      zeroPad(parsed.getHours()),
+      ":",
+      zeroPad(parsed.getMinutes()),
+      ":",
+      zeroPad(parsed.getSeconds()),
+    ].join("");
+  }
+
+  cards.forEach((card) => {
+    console.log(pgFormatDate(card.createdAt));
+  });
+  if (!currentDeck) return <PageLayout>No decks to show</PageLayout>;
+
+  return (
+    <PageLayout>
+      <div className="dashboard__top">
+        <h2>{currentDeck.topic}</h2>
+        <div className="dashboard__top__options">
+          <TextButton>Add card</TextButton>
+          <Button>
+            <FaPlay />
+            Play
+          </Button>
+        </div>
+      </div>
+      {cards ? (
+        <table className="dashboard__container">
+          <thead className="dashboard__headers">
+            <tr>
+              <th>Question</th>
+              <th>Domain</th>
+              <th>Created at</th>
+              <th>Last updated</th>
+            </tr>
+          </thead>
+          {cards.map((card) => (
+            <tbody className="dashboard__items" key={card.id}>
+              <tr>
+                <td className="dashboard__topic">{card.question}</td>
+                <td>{card.domain}</td>
+                <td>{pgFormatDate(card.createdAt)}</td>
+                <td>{pgFormatDate(card.updatedAt)}</td>
+                <td className="dashboard__last ">
+                  <div className="options">
+                    {/* <RiSettings5Fill />
+                    <div className="options__menu">
+                      <OptionsButton onClick={() => handleEdit(card.id)}>
+                        Edit
+                      </OptionsButton>
+                      <OptionsButton onClick={() => handleDelete(deck.id)}>
+                        Delete
+                      </OptionsButton>
+                    </div> */}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
+      ) : (
+        <p>No content to show</p>
+      )}
+    </PageLayout>
+  );
+}
+
+export default Cards;
