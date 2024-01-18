@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Nav from "./components/Nav/Nav";
 import BaseLayout from "./layout/BaseLayout";
 import Decks from "./pages/Decks/Decks";
+import Cards from "./pages/Cards/Cards";
 
 function AppRoutes() {
   const routes = useRoutes([
@@ -14,6 +15,10 @@ function AppRoutes() {
     {
       path: "/decks",
       element: <Decks />,
+    },
+    {
+      path: "/cards",
+      element: <Cards />,
     },
   ]);
   return routes;

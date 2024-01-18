@@ -4,6 +4,9 @@
   background-color: $nav-bg-dark;
   color: $white;
   border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 
   &:hover {
     text-decoration: none;

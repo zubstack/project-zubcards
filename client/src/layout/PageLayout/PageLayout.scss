@@ -1,0 +1,6 @@
+@use '../../styles/utils/' as *;
+
+.page__container {
+  width: clamp(rem(320), rem(150) + 50vw, rem(1000));
+  margin-top: 4rem;
+}
