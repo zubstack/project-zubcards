@@ -40,7 +40,6 @@ function Decks() {
   }
   async function handleDelete(id) {
     await axios.delete(endpoints.deleteDeck(id));
-    console.log("deleted");
     await fetchData();
   }
 

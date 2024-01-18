@@ -60,6 +60,7 @@ function CreateDeckModal({ isOpen, onClose, fetchData, editId, setEditId }) {
           <input
             type="text"
             name="topic"
+            id="topic"
             onChange={({ target }) => setTopic(target.value)}
           />
         </div>
