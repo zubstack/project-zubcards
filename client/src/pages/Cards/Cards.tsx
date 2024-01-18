@@ -10,7 +10,6 @@ import { FaPlay } from "react-icons/fa6";
 
 function Cards() {
   const [cards, setCards] = useState([]);
-  console.log("Initial cards", typeof cards, cards);
 
   const [currentDeck, setCurrentDeck] = useState(null);
 
@@ -23,7 +22,6 @@ function Cards() {
       setCards(data.cards);
     }
     fetchData();
-    console.log("After cards", typeof cards, cards);
   }, []);
 
   // Convert Javascript date to Pg YYYY MM DD HH MI SS
@@ -41,52 +39,51 @@ function Cards() {
       zeroPad(parsed.getMonth() + 1),
       "-",
       zeroPad(parsed.getDate()),
-      " ",
-      zeroPad(parsed.getHours()),
-      ":",
-      zeroPad(parsed.getMinutes()),
-      ":",
-      zeroPad(parsed.getSeconds()),
+      // " ",
+      // zeroPad(parsed.getHours()),
+      // ":",
+      // zeroPad(parsed.getMinutes()),
+      // ":",
+      // zeroPad(parsed.getSeconds()),
     ].join("");
   }
 
-  cards.forEach((card) => {
-    console.log(pgFormatDate(card.createdAt));
-  });
+  cards.forEach((card) => {});
   if (!currentDeck) return <PageLayout>No decks to show</PageLayout>;
 
   return (
-    <PageLayout>
-      <div className="dashboard__top">
-        <h2>{currentDeck.topic}</h2>
-        <div className="dashboard__top__options">
-          <TextButton>Add card</TextButton>
-          <Button>
-            <FaPlay />
-            Play
-          </Button>
+    <main id="cards__main">
+      <PageLayout>
+        <div className="dashboard__top">
+          <h2>{currentDeck.topic}</h2>
+          <div className="dashboard__top__options">
+            <TextButton>Add card</TextButton>
+            <Button>
+              <FaPlay />
+              Play
+            </Button>
+          </div>
         </div>
-      </div>
-      {cards ? (
-        <table className="dashboard__container">
-          <thead className="dashboard__headers">
-            <tr>
-              <th>Question</th>
-              <th>Domain</th>
-              <th>Created at</th>
-              <th>Last updated</th>
-            </tr>
-          </thead>
-          {cards.map((card) => (
-            <tbody className="dashboard__items" key={card.id}>
+        {cards ? (
+          <table className="dashboard__container">
+            <thead className="dashboard__headers">
               <tr>
-                <td className="dashboard__topic">{card.question}</td>
-                <td>{card.domain}</td>
-                <td>{pgFormatDate(card.createdAt)}</td>
-                <td>{pgFormatDate(card.updatedAt)}</td>
-                <td className="dashboard__last ">
-                  <div className="options">
-                    {/* <RiSettings5Fill />
+                <th>Question</th>
+                <th>Domain</th>
+                <th>Created at</th>
+                <th>Last updated</th>
+              </tr>
+            </thead>
+            {cards.map((card) => (
+              <tbody className="dashboard__items" key={card.id}>
+                <tr>
+                  <td className="dashboard__question">{card.question}</td>
+                  <td>{card.domain}</td>
+                  <td>{pgFormatDate(card.createdAt)}</td>
+                  <td>{pgFormatDate(card.updatedAt)}</td>
+                  <td className="dashboard__last ">
+                    <div className="options">
+                      {/* <RiSettings5Fill />
                     <div className="options__menu">
                       <OptionsButton onClick={() => handleEdit(card.id)}>
                         Edit
@@ -95,16 +92,40 @@ function Cards() {
                         Delete
                       </OptionsButton>
                     </div> */}
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          ))}
-        </table>
-      ) : (
-        <p>No content to show</p>
-      )}
-    </PageLayout>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            ))}
+          </table>
+        ) : (
+          <p>No content to show</p>
+        )}
+      </PageLayout>
+      <div className="aside__container">
+        <TextButton>Preview</TextButton>
+        <form className="aside__form">
+          <label htmlFor="question">Front</label>
+          <input
+            className="aside__form__input"
+            type="text"
+            name="question"
+            id="question"
+          />
+          <label htmlFor="question">Back</label>
+          <input
+            size={4}
+            className="aside__form__input"
+            type="text"
+            name="question"
+          />
+          <div>
+            <TextButton>Save changes</TextButton>|
+            <TextButton color={"red"}>Cancel</TextButton>
+          </div>
+        </form>
+      </div>
+    </main>
   );
 }
 

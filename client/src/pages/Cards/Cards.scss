@@ -1,3 +1,14 @@
+@use '../../styles/utils/' as *;
+@use '../../styles/globals/' as *;
+
+#cards__main {
+
+  @include breakpoint(medium) {
+    display: flex;
+    gap: 2rem;
+  }
+}
+
 .dashboard {
 
   &__top {
@@ -8,6 +19,38 @@
 
     &__options {
       display: flex;
+    }
+  }
+
+  &__question {
+    text-align: left;
+
+    padding-left: rem(10);
+
+    @include breakpoint(medium) {
+      padding-left: rem(40);
+
+    }
+  }
+}
+
+.aside {
+  &__container {
+    // height: 60vh;
+    width: 100%;
+    background-color: $white;
+    padding: 1rem 2rem;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    &__input {
+      margin-bottom: 4rem;
     }
   }
 }
