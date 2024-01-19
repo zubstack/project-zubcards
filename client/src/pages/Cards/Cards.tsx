@@ -126,7 +126,7 @@ function Cards() {
           <table className="dashboard__container" style={{ margin: "auto" }}>
             <thead className="dashboard__headers">
               <tr>
-                <th>Question</th>
+                <th className="dashboard__question">Question</th>
                 <th>Domain</th>
                 <th>Created at</th>
                 <th>Last updated</th>
@@ -136,12 +136,19 @@ function Cards() {
               <tbody className="dashboard__items" key={card.id}>
                 <tr onClick={() => handleRowFocus(card)}>
                   <td className="dashboard__question">{card.question}</td>
-                  <td>{card.domain}</td>
-                  <td>{pgFormatDate(card.createdAt)}</td>
-                  <td>{pgFormatDate(card.updatedAt)}</td>
-                  <td className="dashboard__last ">
+                  <td style={{ textAlign: "center" }}>{card.domain}</td>
+                  <td style={{ textAlign: "center" }}>
+                    {pgFormatDate(card.createdAt)}
+                  </td>
+                  <td
+                    style={{ textAlign: "center" }}
+                    className="dashboard__last "
+                  >
+                    {pgFormatDate(card.updatedAt)}
+                  </td>
+                  {/* <td >
                     <div className="options">
-                      {/* <RiSettings5Fill />
+                       <RiSettings5Fill />
                     <div className="options__menu">
                       <OptionsButton onClick={() => handleEdit(card.id)}>
                         Edit
@@ -149,9 +156,9 @@ function Cards() {
                       <OptionsButton onClick={() => handleDelete(deck.id)}>
                         Delete
                       </OptionsButton>
-                    </div> */}
                     </div>
-                  </td>
+                    </div>
+                  </td> */}
                 </tr>
               </tbody>
             ))}
