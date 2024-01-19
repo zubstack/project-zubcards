@@ -10,11 +10,19 @@ function AppRoutes() {
   const routes = useRoutes([
     {
       path: "/",
-      element: <Home />,
+      element: (
+        <BaseLayout>
+          <Home />
+        </BaseLayout>
+      ),
     },
     {
       path: "/decks",
-      element: <Decks />,
+      element: (
+        <BaseLayout>
+          <Decks />
+        </BaseLayout>
+      ),
     },
     {
       path: "/cards",
@@ -28,9 +36,7 @@ function App() {
   return (
     <BrowserRouter>
       <Nav />
-      <BaseLayout>
-        <AppRoutes />
-      </BaseLayout>
+      <AppRoutes />
     </BrowserRouter>
   );
 }
