@@ -3,6 +3,8 @@
 
 .text__button {
 
+  color: $dark;
+
   &--red {
     color: $danger;
   }
@@ -11,7 +13,8 @@
 }
 
 button:disabled {
-  color: $dark;
+
+  color: $body-bg-light;
 
   &:hover {
     text-decoration: none;
