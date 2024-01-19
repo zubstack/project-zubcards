@@ -3,8 +3,14 @@
 
 #cards__main {
 
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   @include breakpoint(medium) {
-    display: flex;
+    flex-direction: row;
+    align-items: start;
     gap: 2rem;
   }
 }
@@ -24,24 +30,28 @@
 
   &__question {
     text-align: left;
-
     padding-left: rem(10);
 
     @include breakpoint(medium) {
       padding-left: rem(40);
-
     }
   }
 }
 
 .aside {
   &__container {
-    // height: 60vh;
-    width: 100%;
+    position: relative;
+    width: clamp(rem(273), rem(200) + 16vw, rem(370));
     background-color: $white;
-    padding: 1rem 2rem;
     margin-bottom: 4rem;
-    margin-top: 2rem;
+    margin: auto;
+    // height: 60vh;
+    padding: 4rem 2rem;
+
+    @include breakpoint(medium) {
+      padding: rem(107) 2rem;
+      margin: 0;
+    }
   }
 
   &__form {
@@ -52,5 +62,24 @@
     &__input {
       margin-bottom: 4rem;
     }
+  }
+
+  &__button {
+
+    &__top,
+    &__bottom {
+      position: absolute;
+      right: 5%;
+    }
+
+    &__top {
+      top: 5%;
+    }
+
+    &__bottom {
+      top: 80%;
+    }
+
+
   }
 }

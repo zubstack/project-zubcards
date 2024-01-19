@@ -54,7 +54,7 @@ function Cards() {
   return (
     <main id="cards__main">
       <PageLayout>
-        <div className="dashboard__top">
+        <div className="dashboard__top" style={{ padding: "0 12px" }}>
           <h2>{currentDeck.topic}</h2>
           <div className="dashboard__top__options">
             <TextButton>Add card</TextButton>
@@ -103,7 +103,9 @@ function Cards() {
         )}
       </PageLayout>
       <div className="aside__container">
-        <TextButton>Preview</TextButton>
+        <div className="aside__button__top">
+          <TextButton>Preview</TextButton>
+        </div>
         <form className="aside__form">
           <label htmlFor="question">Front</label>
           <input
@@ -119,7 +121,7 @@ function Cards() {
             type="text"
             name="question"
           />
-          <div>
+          <div className="aside__button__bottom">
             <TextButton>Save changes</TextButton>|
             <TextButton color={"red"}>Cancel</TextButton>
           </div>
