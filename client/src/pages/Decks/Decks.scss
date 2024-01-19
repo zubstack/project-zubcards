@@ -67,7 +67,6 @@ th {
   &__last {
     padding-right: rem(10);
 
-
     @include breakpoint(medium) {
       padding-right: rem(40);
     }

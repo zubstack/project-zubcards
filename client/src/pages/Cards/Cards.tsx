@@ -141,7 +141,7 @@ function Cards() {
                     {pgFormatDate(card.createdAt)}
                   </td>
                   <td
-                    style={{ textAlign: "center" }}
+                    style={{ textAlign: "right" }}
                     className="dashboard__last "
                   >
                     {pgFormatDate(card.updatedAt)}
