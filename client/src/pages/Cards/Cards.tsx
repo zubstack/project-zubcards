@@ -8,6 +8,7 @@ import TextButton from "../../ui/TextButton/TextButton";
 import Button from "../../ui/Button/Button";
 import { FaPlay } from "react-icons/fa6";
 import CreateCardModal from "../../components/CreateCardModal/CreateCardModal";
+import { FaTrashAlt } from "react-icons/fa";
 
 function Cards() {
   const [cards, setCards] = useState([]);
@@ -105,6 +106,11 @@ function Cards() {
       },
     );
     fetchData();
+    setIsFormDirty(false);
+  }
+  async function handleDeleteCard(id) {
+    await axios.delete(endpoints.deleteCard(id));
+    fetchData();
   }
 
   if (!currentDeck) return <PageLayout>No decks to show</PageLayout>;
@@ -140,25 +146,14 @@ function Cards() {
                   <td style={{ textAlign: "center" }}>
                     {pgFormatDate(card.createdAt)}
                   </td>
-                  <td
-                    style={{ textAlign: "right" }}
-                    className="dashboard__last "
-                  >
+                  <td style={{ textAlign: "center" }} className=" ">
                     {pgFormatDate(card.updatedAt)}
                   </td>
-                  {/* <td >
-                    <div className="options">
-                       <RiSettings5Fill />
-                    <div className="options__menu">
-                      <OptionsButton onClick={() => handleEdit(card.id)}>
-                        Edit
-                      </OptionsButton>
-                      <OptionsButton onClick={() => handleDelete(deck.id)}>
-                        Delete
-                      </OptionsButton>
+                  <td className="dashboard__last">
+                    <div className="hover_options">
+                      <FaTrashAlt onClick={() => handleDeleteCard(card.id)} />
                     </div>
-                    </div>
-                  </td> */}
+                  </td>
                 </tr>
               </tbody>
             ))}

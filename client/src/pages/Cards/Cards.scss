@@ -80,3 +80,13 @@
 
   }
 }
+
+.hover_options {
+  color: $body-bg-light;
+  transition: .1s;
+
+  &:hover {
+    color: $nav-bg-dark;
+    transition: .1s;
+  }
+}
