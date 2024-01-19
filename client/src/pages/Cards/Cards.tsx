@@ -15,15 +15,39 @@ function Cards() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isCardsCreateModalOpen, setCardsCreateModalOpen] = useState(null);
 
+  const [selectedCard, setSelectedCard] = useState([]);
+  const [formValues, setFormValues] = useState({
+    question: "",
+    answer: "",
+    deckId: 0,
+  });
+  const [isFormDirty, setIsFormDirty] = useState(false);
+
   const deckId = searchParams.get("deckId");
   async function fetchData() {
     const { data } = await axios.get(endpoints.getCardsFromDeck(deckId));
     setCurrentDeck(data.deck);
     setCards(data.cards);
   }
+
   useEffect(() => {
     fetchData();
   }, []);
+  useEffect(() => {
+    function initialSetUp() {
+      if (cards.length > 0) {
+        // console.log("we have cards", cards[0]);
+        setSelectedCard(cards[0]);
+
+        setFormValues({
+          question: cards[0].question,
+          answer: cards[0].answer,
+          deckId: cards[0].id,
+        });
+      }
+    }
+    initialSetUp();
+  }, [cards]);
 
   // Convert Javascript date to Pg YYYY MM DD HH MI SS
   function pgFormatDate(date) {
@@ -55,6 +79,34 @@ function Cards() {
     setCardsCreateModalOpen(false);
   }
 
+  function handleRowFocus(card) {
+    setIsFormDirty(false);
+    setFormValues({
+      ...formValues,
+      question: card.question,
+      answer: card.answer,
+      deckId: card.id,
+    });
+  }
+  function handleFormChanges({ target }) {
+    setFormValues({ ...formValues, [target.name]: target.value });
+    setIsFormDirty(true);
+  }
+  async function handleEditCardSubmit(ev) {
+    ev.preventDefault();
+    console.log("formValues", formValues);
+    await axios.patch(
+      endpoints.updateCard(formValues.deckId),
+      { question: formValues.question, answer: formValues.answer },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    fetchData();
+  }
+
   if (!currentDeck) return <PageLayout>No decks to show</PageLayout>;
 
   return (
@@ -82,7 +134,7 @@ function Cards() {
             </thead>
             {cards.map((card) => (
               <tbody className="dashboard__items" key={card.id}>
-                <tr>
+                <tr onClick={() => handleRowFocus(card)}>
                   <td className="dashboard__question">{card.question}</td>
                   <td>{card.domain}</td>
                   <td>{pgFormatDate(card.createdAt)}</td>
@@ -112,24 +164,27 @@ function Cards() {
         <div className="aside__button__top">
           <TextButton>Preview</TextButton>
         </div>
-        <form className="aside__form">
+        <form className="aside__form" onSubmit={handleEditCardSubmit}>
           <label htmlFor="question">Front</label>
           <input
             className="aside__form__input"
             type="text"
             name="question"
             id="question"
+            value={formValues.question}
+            onChange={handleFormChanges}
           />
-          <label htmlFor="question">Back</label>
+          <label htmlFor="answer">Back</label>
           <input
-            size={4}
             className="aside__form__input"
             type="text"
-            name="question"
+            name="answer"
+            id="answer"
+            value={formValues.answer}
+            onChange={handleFormChanges}
           />
           <div className="aside__button__bottom">
-            <TextButton>Save changes</TextButton>|
-            <TextButton color={"red"}>Cancel</TextButton>
+            <TextButton disabled={!isFormDirty}>Save changes</TextButton>
           </div>
         </form>
       </div>

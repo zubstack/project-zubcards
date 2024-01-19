@@ -6,4 +6,14 @@
   &--red {
     color: $danger;
   }
+
+
+}
+
+button:disabled {
+  color: $dark;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
