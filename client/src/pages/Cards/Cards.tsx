@@ -7,30 +7,29 @@ import PageLayout from "../../layout/PageLayout/PageLayout";
 import TextButton from "../../ui/TextButton/TextButton";
 import Button from "../../ui/Button/Button";
 import { FaPlay } from "react-icons/fa6";
+import CreateCardModal from "../../components/CreateCardModal/CreateCardModal";
 
 function Cards() {
   const [cards, setCards] = useState([]);
-
   const [currentDeck, setCurrentDeck] = useState(null);
-
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isCardsCreateModalOpen, setCardsCreateModalOpen] = useState(null);
+
   const deckId = searchParams.get("deckId");
+  async function fetchData() {
+    const { data } = await axios.get(endpoints.getCardsFromDeck(deckId));
+    setCurrentDeck(data.deck);
+    setCards(data.cards);
+  }
   useEffect(() => {
-    async function fetchData() {
-      const { data } = await axios.get(endpoints.getCardsFromDeck(deckId));
-      setCurrentDeck(data.deck);
-      setCards(data.cards);
-    }
     fetchData();
   }, []);
 
   // Convert Javascript date to Pg YYYY MM DD HH MI SS
-
   function pgFormatDate(date) {
     function zeroPad(d) {
       return ("0" + d).slice(-2);
     }
-
     let parsed = new Date(date);
 
     return [
@@ -48,7 +47,14 @@ function Cards() {
     ].join("");
   }
 
-  cards.forEach((card) => {});
+  function handleOpenCardsModal() {
+    setCardsCreateModalOpen(true);
+  }
+
+  function closeOpenCardsCreateModal() {
+    setCardsCreateModalOpen(false);
+  }
+
   if (!currentDeck) return <PageLayout>No decks to show</PageLayout>;
 
   return (
@@ -57,7 +63,7 @@ function Cards() {
         <div className="dashboard__top" style={{ padding: "0 12px" }}>
           <h2>{currentDeck.topic}</h2>
           <div className="dashboard__top__options">
-            <TextButton>Add card</TextButton>
+            <TextButton onClick={handleOpenCardsModal}>Add card</TextButton>
             <Button>
               <FaPlay />
               Play
@@ -65,7 +71,7 @@ function Cards() {
           </div>
         </div>
         {cards ? (
-          <table className="dashboard__container">
+          <table className="dashboard__container" style={{ margin: "auto" }}>
             <thead className="dashboard__headers">
               <tr>
                 <th>Question</th>
@@ -127,6 +133,12 @@ function Cards() {
           </div>
         </form>
       </div>
+      <CreateCardModal
+        isOpen={isCardsCreateModalOpen}
+        onClose={closeOpenCardsCreateModal}
+        fetchData={fetchData}
+        deckId={deckId}
+      />
     </main>
   );
 }

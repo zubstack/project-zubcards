@@ -2,16 +2,14 @@
 @use '../../styles/globals/' as *;
 
 #cards__main {
-
-
   display: flex;
   flex-direction: column;
+  gap: 2rem;
   align-items: center;
 
   @include breakpoint(medium) {
     flex-direction: row;
     align-items: start;
-    gap: 2rem;
   }
 }
 
@@ -45,11 +43,10 @@
     background-color: $white;
     margin-bottom: 4rem;
     margin: auto;
-    // height: 60vh;
     padding: 4rem 2rem;
 
     @include breakpoint(medium) {
-      padding: rem(107) 2rem;
+      height: calc(100vh - 72px);
       margin: 0;
     }
   }
