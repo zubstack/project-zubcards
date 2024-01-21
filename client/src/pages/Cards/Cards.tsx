@@ -143,7 +143,7 @@ function Cards() {
                 <tbody key={card.id}>
                   <tr onClick={() => handleRowFocus(card)}>
                     <td>{card.question}</td>
-                    <td>{card.domain}</td>
+                    <td className="table__item--center">{card.domain}</td>
                     <td>{pgFormatDate(card.createdAt)}</td>
                     <td>{pgFormatDate(card.updatedAt)}</td>
                     <td>

@@ -82,6 +82,24 @@
   }
 }
 
+.table__item {
+  &--center {
+    text-align: center;
+  }
+
+  &--green {
+    color: rgb(96, 161, 0);
+  }
+
+  &--red {
+    color: rgb(161, 0, 62);
+  }
+
+  &--blue {
+    color: rgb(0, 48, 161);
+  }
+}
+
 // td,
 // th {
 //   padding: rem(12);

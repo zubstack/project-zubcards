@@ -74,9 +74,9 @@ function Decks() {
               <thead>
                 <tr>
                   <th>Deck</th>
-                  <th>New</th>
-                  <th>Learn</th>
-                  <th>Due</th>
+                  <th className="table__item--center">New</th>
+                  <th className="table__item--center">Learn</th>
+                  <th className="table__item--center">Due</th>
                   <th></th>
                 </tr>
               </thead>
@@ -86,9 +86,15 @@ function Decks() {
                     <td>
                       <Link to={`/cards?deckId=${deck.id}`}>{deck.topic}</Link>
                     </td>
-                    <td>{deck.new}</td>
-                    <td>{deck.learn}</td>
-                    <td>{deck.due}</td>
+                    <td className="table__item--center table__item--blue">
+                      {deck.new}
+                    </td>
+                    <td className="table__item--center table__item--red">
+                      {deck.learn}
+                    </td>
+                    <td className="table__item--center table__item--green">
+                      {deck.due}
+                    </td>
                     <td>
                       <div onClick={handleToggle} className="options">
                         <RiSettings5Fill />
