@@ -5,15 +5,32 @@
 //   border: 1px solid;
 // }
 
-.container {
-  width: clamp(rem(312), rem(220) + 30vw, rem(700));
-  margin: 4rem auto;
+#decks__main {
+
+  .container {
+    width: clamp(rem(312), rem(220) + 30vw, rem(700));
+    margin: 4rem auto;
+
+    &__top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+
+    &__top {
+      font-size: rem(18);
 
 
-  &__top {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
+      @include breakpoint(medium) {
+        font-size: rem(20);
+      }
+
+      @include breakpoint(large) {
+        font-size: rem(22);
+      }
+
+    }
+
   }
 }
 
@@ -22,9 +39,19 @@
   background-color: white;
   border-collapse: collapse;
   /* margin: 25px 0; */
-  font-size: 0.9em;
+  font-size: rem(12);
   // min-width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+
+  @include breakpoint(medium) {
+    font-size: rem(14);
+  }
+
+  @include breakpoint(large) {
+    font-size: rem(18);
+  }
+
 
   & thead tr {
     background-color: $nav-bg-dark;

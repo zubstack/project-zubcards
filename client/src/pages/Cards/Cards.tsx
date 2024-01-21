@@ -116,50 +116,50 @@ function Cards() {
 
   return (
     <main id="cards__main">
-      <div className="dashboard__top" style={{ padding: "0 12px" }}>
-        <h2>{currentDeck.topic}</h2>
-        <div className="dashboard__top__options">
-          <TextButton onClick={handleOpenCardsModal}>Add card</TextButton>
-          <Button>
-            <FaPlay />
-            Play
-          </Button>
+      <div className="container">
+        <div className="container__top">
+          <h2>{currentDeck.topic}</h2>
+          <div className="container__top__options">
+            <TextButton onClick={handleOpenCardsModal}>Add card</TextButton>
+            <Button>
+              <FaPlay />
+              Play
+            </Button>
+          </div>
+        </div>
+        <div className="table__container">
+          {cards ? (
+            <table id="cards__table">
+              <thead>
+                <tr>
+                  <th>Question</th>
+                  <th>Domain</th>
+                  <th>Created at</th>
+                  <th>Last updated</th>
+                  <th></th>
+                </tr>
+              </thead>
+              {cards.map((card) => (
+                <tbody key={card.id}>
+                  <tr onClick={() => handleRowFocus(card)}>
+                    <td>{card.question}</td>
+                    <td>{card.domain}</td>
+                    <td>{pgFormatDate(card.createdAt)}</td>
+                    <td>{pgFormatDate(card.updatedAt)}</td>
+                    <td>
+                      <div className="hover_options">
+                        <FaTrashAlt onClick={() => handleDeleteCard(card.id)} />
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          ) : (
+            <p>No content to show</p>
+          )}
         </div>
       </div>
-      {cards ? (
-        <table className="dashboard__container" style={{ margin: "auto" }}>
-          <thead className="dashboard__headers">
-            <tr>
-              <th className="dashboard__question">Question</th>
-              <th>Domain</th>
-              <th>Created at</th>
-              <th>Last updated</th>
-            </tr>
-          </thead>
-          {cards.map((card) => (
-            <tbody className="dashboard__items" key={card.id}>
-              <tr onClick={() => handleRowFocus(card)}>
-                <td className="dashboard__question">{card.question}</td>
-                <td style={{ textAlign: "center" }}>{card.domain}</td>
-                <td style={{ textAlign: "center" }}>
-                  {pgFormatDate(card.createdAt)}
-                </td>
-                <td style={{ textAlign: "center" }} className=" ">
-                  {pgFormatDate(card.updatedAt)}
-                </td>
-                <td className="dashboard__last">
-                  <div className="hover_options">
-                    <FaTrashAlt onClick={() => handleDeleteCard(card.id)} />
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          ))}
-        </table>
-      ) : (
-        <p>No content to show</p>
-      )}
-
       <div className="aside__container">
         <div className="aside__button__top">
           <TextButton>Preview</TextButton>

@@ -1,38 +1,84 @@
 @use '../../styles/utils/' as *;
 @use '../../styles/globals/' as *;
 
-#cards__main {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  align-items: center;
+.container {
+  border: 1px solid;
+}
 
-  @include breakpoint(medium) {
-    flex-direction: row;
-    align-items: start;
+#cards__main {
+  // display: flex;
+  // flex-direction: column;
+  // gap: 2rem;
+  // align-items: center;
+
+  // @include breakpoint(medium) {
+  //   flex-direction: row;
+  //   align-items: start;
+  // }
+
+  .container {
+    width: clamp(rem(312), rem(220) + 30vw, rem(700));
+    margin: 4rem auto;
+
+
+    &__top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+
+      &__options {
+        display: flex;
+      }
+    }
+
   }
 }
 
-.dashboard {
 
-  &__top {
-    // display: flex;
-    // justify-content: space-between;
-    // align-items: center;
-    // margin-bottom: 4rem;
 
-    &__options {
-      display: flex;
-    }
+#cards__table {
+  width: 100%;
+  background-color: white;
+  border-collapse: collapse;
+  /* margin: 25px 0; */
+  font-size: rem(10);
+  // min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+  @include breakpoint(medium) {
+    font-size: rem(12);
   }
 
-  &__question {
-    text-align: left;
-    padding-left: rem(10);
+  @include breakpoint(large) {
+    font-size: rem(16);
+  }
 
-    @include breakpoint(medium) {
-      padding-left: rem(40);
-    }
+  & thead tr {
+    background-color: $nav-bg-dark;
+    color: #ffffff;
+    text-align: left;
+  }
+
+  & th,
+  & td {
+    padding: 12px 15px;
+  }
+
+  & tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+
+  & tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+
+  & tbody tr:last-of-type {
+    border-bottom: 2px solid $nav-bg-dark;
+  }
+
+  & tbody tr.active-row {
+    font-weight: bold;
+    color: $nav-bg-dark;
   }
 }
 
@@ -89,4 +135,27 @@
     color: $nav-bg-dark;
     transition: .1s;
   }
+
+  // .dashboard {
+
+  //   &__top {
+  //     // display: flex;
+  //     // justify-content: space-between;
+  //     // align-items: center;
+  //     // margin-bottom: 4rem;
+
+  //     &__options {
+  //       display: flex;
+  //     }
+  //   }
+
+  //   &__question {
+  //     text-align: left;
+  //     padding-left: rem(10);
+
+  //     @include breakpoint(medium) {
+  //       padding-left: rem(40);
+  //     }
+  //   }
+  // }
 }

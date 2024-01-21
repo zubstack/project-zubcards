@@ -110,6 +110,7 @@ function Decks() {
             <p>No content to show</p>
           )}
         </div>
+
         <CreateDeckModal
           isOpen={isDecksCreateModalOpen}
           onClose={closeOpenDecksCreateModal}
