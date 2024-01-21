@@ -166,8 +166,7 @@ function Cards() {
         </div>
         <form className="aside__form" onSubmit={handleEditCardSubmit}>
           <label htmlFor="question">Front</label>
-          <input
-            className="aside__form__input"
+          <textarea
             type="text"
             name="question"
             id="question"
@@ -175,8 +174,7 @@ function Cards() {
             onChange={handleFormChanges}
           />
           <label htmlFor="answer">Back</label>
-          <input
-            className="aside__form__input"
+          <textarea
             type="text"
             name="answer"
             id="answer"

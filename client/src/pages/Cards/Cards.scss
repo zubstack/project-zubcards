@@ -1,9 +1,9 @@
 @use '../../styles/utils/' as *;
 @use '../../styles/globals/' as *;
 
-.container {
-  border: 1px solid;
-}
+// * {
+//   border: 1px solid;
+// }
 
 #cards__main {
   // display: flex;
@@ -16,8 +16,12 @@
   //   align-items: start;
   // }
 
+  @include breakpoint(medium) {
+    display: flex;
+  }
+
   .container {
-    width: clamp(rem(312), rem(220) + 30vw, rem(700));
+    width: clamp(rem(312), rem(220) + 30vw, rem(900));
     margin: 4rem auto;
 
 
@@ -34,7 +38,11 @@
   }
 }
 
-
+.table__container {
+  height: 50vh;
+  overflow: auto;
+  scrollbar-gutter: stable;
+}
 
 #cards__table {
   width: 100%;
@@ -50,7 +58,7 @@
   }
 
   @include breakpoint(large) {
-    font-size: rem(16);
+    font-size: rem(14);
   }
 
   & thead tr {
@@ -85,10 +93,10 @@
 .aside {
   &__container {
     position: relative;
-    width: clamp(rem(273), rem(200) + 16vw, rem(370));
+    // width: clamp(rem(273), rem(200) + 16vw, rem(370));
     background-color: $white;
-    margin-bottom: 4rem;
-    margin: auto;
+    // margin-bottom: 4rem;
+    margin: 4rem 2rem;
     padding: 4rem 2rem;
 
     @include breakpoint(medium) {
@@ -103,7 +111,28 @@
     text-align: left;
 
     &__input {
+      margin-bottom: 2rem;
+
+      @include breakpoint(medium) {
+        margin-bottom: 4rem;
+      }
+    }
+
+    & textarea {
       margin-bottom: 4rem;
+      min-height: 120px;
+      padding: rem(8);
+      width: 100%;
+
+      @include breakpoint(medium) {
+        width: 200px;
+        padding: rem(10);
+      }
+
+      @include breakpoint(large) {
+        width: 300px;
+        padding: rem(12);
+      }
     }
   }
 
@@ -113,6 +142,15 @@
     &__bottom {
       position: absolute;
       right: 5%;
+      font-size: rem(10);
+
+      @include breakpoint(medium) {
+        font-size: rem(12);
+      }
+
+      @include breakpoint(large) {
+        font-size: rem(14);
+      }
     }
 
     &__top {
@@ -122,8 +160,6 @@
     &__bottom {
       top: 80%;
     }
-
-
   }
 }
 
@@ -135,27 +171,27 @@
     color: $nav-bg-dark;
     transition: .1s;
   }
-
-  // .dashboard {
-
-  //   &__top {
-  //     // display: flex;
-  //     // justify-content: space-between;
-  //     // align-items: center;
-  //     // margin-bottom: 4rem;
-
-  //     &__options {
-  //       display: flex;
-  //     }
-  //   }
-
-  //   &__question {
-  //     text-align: left;
-  //     padding-left: rem(10);
-
-  //     @include breakpoint(medium) {
-  //       padding-left: rem(40);
-  //     }
-  //   }
-  // }
 }
+
+// .dashboard {
+
+//   &__top {
+//     // display: flex;
+//     // justify-content: space-between;
+//     // align-items: center;
+//     // margin-bottom: 4rem;
+
+//     &__options {
+//       display: flex;
+//     }
+//   }
+
+//   &__question {
+//     text-align: left;
+//     padding-left: rem(10);
+
+//     @include breakpoint(medium) {
+//       padding-left: rem(40);
+//     }
+//   }
+// }
