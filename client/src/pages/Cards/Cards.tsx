@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./Cards.scss";
 import axios from "axios";
 import endpoints from "../../services/api/endpoints";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import TextButton from "../../ui/TextButton/TextButton";
 import Button from "../../ui/Button/Button";
 import { FaPlay } from "react-icons/fa6";
@@ -22,6 +22,7 @@ function Cards() {
     deckId: 0,
   });
   const [isFormDirty, setIsFormDirty] = useState(false);
+  const navigate = useNavigate();
 
   const deckId = searchParams.get("deckId");
   async function fetchData() {
@@ -121,7 +122,11 @@ function Cards() {
           <h2>{currentDeck.topic}</h2>
           <div className="container__top__options">
             <TextButton onClick={handleOpenCardsModal}>Add card</TextButton>
-            <Button>
+            <Button
+              onClick={() => {
+                navigate(`/flashcards?deckId=${currentDeck.id}`);
+              }}
+            >
               <FaPlay />
               Play
             </Button>

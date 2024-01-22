@@ -129,4 +129,8 @@ function Decks() {
   );
 }
 
+//PENDING: Play cards directly from the decks dashboard
+//PENDING: Decks table add option to "See cards"
+//PENDING: Preview modal
+
 export default Decks;

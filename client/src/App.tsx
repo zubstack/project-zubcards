@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Nav from "./components/Nav/Nav";
 import Decks from "./pages/Decks/Decks";
 import Cards from "./pages/Cards/Cards";
+import Flashcards from "./pages/Flashcards/Flashcards";
 
 function AppRoutes() {
   const routes = useRoutes([
@@ -18,6 +19,10 @@ function AppRoutes() {
     {
       path: "/cards",
       element: <Cards />,
+    },
+    {
+      path: "/flashcards",
+      element: <Flashcards />,
     },
   ]);
   return routes;
