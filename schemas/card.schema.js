@@ -4,6 +4,7 @@ const id = Joi.number();
 const question = Joi.string().max(25);
 const answer = Joi.string().max(100);
 const deck_id = Joi.number();
+const domain = Joi.number().max(3).min(0);
 
 const createCardSchema = Joi.object({
   question: question.required(),
@@ -14,7 +15,7 @@ const createCardSchema = Joi.object({
 const updateCardSchema = Joi.object({
   question: question,
   answer: answer,
-  deck_id: deck_id,
+  domain: domain,
 });
 
 const getCardSchema = Joi.object({
