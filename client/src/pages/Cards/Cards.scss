@@ -74,14 +74,19 @@
 
   & tbody tr {
     border-bottom: 1px solid #dddddd;
+    cursor: pointer;
   }
 
   & tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+    background-color: #f1f1f1;
   }
 
   & tbody tr:last-of-type {
     border-bottom: 2px solid $nav-bg-dark;
+  }
+
+  & tbody tr:hover {
+    background-color: $body-bg-light;
   }
 
   & tbody tr.active-row {

@@ -139,9 +139,9 @@ function Cards() {
                   <th></th>
                 </tr>
               </thead>
-              {cards.map((card) => (
-                <tbody key={card.id}>
-                  <tr onClick={() => handleRowFocus(card)}>
+              <tbody>
+                {cards.map((card) => (
+                  <tr key={card.id} onClick={() => handleRowFocus(card)}>
                     <td>{card.question}</td>
                     <td className="table__item--center">{card.domain}</td>
                     <td>{pgFormatDate(card.createdAt)}</td>
@@ -152,8 +152,8 @@ function Cards() {
                       </div>
                     </td>
                   </tr>
-                </tbody>
-              ))}
+                ))}
+              </tbody>
             </table>
           ) : (
             <p>No content to show</p>

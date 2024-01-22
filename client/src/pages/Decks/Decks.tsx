@@ -80,9 +80,9 @@ function Decks() {
                   <th></th>
                 </tr>
               </thead>
-              {decks.map((deck) => (
-                <tbody key={deck.topic}>
-                  <tr>
+              <tbody>
+                {decks.map((deck) => (
+                  <tr key={deck.id}>
                     <td>
                       <Link to={`/cards?deckId=${deck.id}`}>{deck.topic}</Link>
                     </td>
@@ -109,8 +109,8 @@ function Decks() {
                       </div>
                     </td>
                   </tr>
-                </tbody>
-              ))}
+                ))}
+              </tbody>
             </table>
           ) : (
             <p>No content to show</p>
