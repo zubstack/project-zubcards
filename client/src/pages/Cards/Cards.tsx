@@ -50,28 +50,6 @@ function Cards() {
     initialSetUp();
   }, [cards]);
 
-  // Convert Javascript date to Pg YYYY MM DD HH MI SS
-  function pgFormatDate(date) {
-    function zeroPad(d) {
-      return ("0" + d).slice(-2);
-    }
-    let parsed = new Date(date);
-
-    return [
-      parsed.getUTCFullYear(),
-      "-",
-      zeroPad(parsed.getMonth() + 1),
-      "-",
-      zeroPad(parsed.getDate()),
-      // " ",
-      // zeroPad(parsed.getHours()),
-      // ":",
-      // zeroPad(parsed.getMinutes()),
-      // ":",
-      // zeroPad(parsed.getSeconds()),
-    ].join("");
-  }
-
   function handleOpenCardsModal() {
     setCardsCreateModalOpen(true);
   }
@@ -149,8 +127,8 @@ function Cards() {
                   <tr key={card.id} onClick={() => handleRowFocus(card)}>
                     <td>{card.question}</td>
                     <td className="table__item--center">{card.domain}</td>
-                    <td>{pgFormatDate(card.createdAt)}</td>
-                    <td>{pgFormatDate(card.updatedAt)}</td>
+                    <td>{card.createdAt}</td>
+                    <td>{card.updatedAt}</td>
                     <td>
                       <div className="hover_options">
                         <FaTrashAlt onClick={() => handleDeleteCard(card.id)} />
