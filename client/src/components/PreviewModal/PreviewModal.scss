@@ -1,0 +1,33 @@
+#preview__modal {
+  position: relative;
+  background-color: white;
+  padding: 2rem;
+
+  & div {
+    padding: 2rem 1rem;
+  }
+
+
+
+}
+
+.modal__item:nth-child(2) {
+  border-bottom: 1px solid black;
+}
+
+.modal__options {
+
+  &__top,
+  &__bottom {
+    position: absolute;
+    right: 0;
+  }
+
+  &__top {
+    top: -10px;
+  }
+
+  &__bottom {
+    top: 70%;
+  }
+}

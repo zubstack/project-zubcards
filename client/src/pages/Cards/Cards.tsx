@@ -8,12 +8,14 @@ import Button from "../../ui/Button/Button";
 import { FaChevronLeft, FaPlay } from "react-icons/fa6";
 import CreateCardModal from "../../components/CreateCardModal/CreateCardModal";
 import { FaTrashAlt } from "react-icons/fa";
+import PreviewModal from "../../components/PreviewModal/PreviewModal";
 
 function Cards() {
   const [cards, setCards] = useState([]);
   const [currentDeck, setCurrentDeck] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [isCardsCreateModalOpen, setCardsCreateModalOpen] = useState(null);
+  const [isCardsPreviewModalOpen, setCardsPreviewModalOpen] = useState(null);
 
   const [selectedCard, setSelectedCard] = useState([]);
   const [formValues, setFormValues] = useState({
@@ -53,9 +55,15 @@ function Cards() {
   function handleOpenCardsModal() {
     setCardsCreateModalOpen(true);
   }
+  function handleOpenCardsPreviewModal() {
+    setCardsPreviewModalOpen(true);
+  }
 
   function closeOpenCardsCreateModal() {
     setCardsCreateModalOpen(false);
+  }
+  function closeCardsPreviewModal() {
+    setCardsPreviewModalOpen(false);
   }
 
   function handleRowFocus(card) {
@@ -145,7 +153,7 @@ function Cards() {
       </div>
       <div className="aside__container">
         <div className="aside__button__top">
-          <TextButton>Preview</TextButton>
+          <TextButton onClick={handleOpenCardsPreviewModal}>Preview</TextButton>
         </div>
         <form className="aside__form" onSubmit={handleEditCardSubmit}>
           <label htmlFor="question">Front</label>
@@ -172,6 +180,11 @@ function Cards() {
         onClose={closeOpenCardsCreateModal}
         fetchData={fetchData}
         deckId={deckId}
+      />
+      <PreviewModal
+        isOpen={isCardsPreviewModalOpen}
+        onClose={closeCardsPreviewModal}
+        cards={cards}
       />
     </main>
   );
