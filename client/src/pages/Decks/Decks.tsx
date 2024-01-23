@@ -6,13 +6,16 @@ import TextButton from "../../ui/TextButton/TextButton";
 import OptionsButton from "../../ui/OptionsButton/OptionsButton";
 import CreateDeckModal from "../../components/CreateDeckModal/CreateDeckModal";
 import endpoints from "../../services/api/endpoints";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { FaPlay } from "react-icons/fa6";
+import Button from "../../ui/Button/Button";
 
 function Decks() {
   const [decks, setDecks] = useState(null);
   const [isDecksCreateModalOpen, setDecksCreateModalOpen] = useState(null);
   const [editId, setEditId] = useState(null);
 
+  const navigate = useNavigate();
   const optionsRef = useRef();
 
   function handleToggle(event) {
@@ -40,6 +43,10 @@ function Decks() {
   async function handleDelete(id) {
     await axios.delete(endpoints.deleteDeck(id));
     await fetchData();
+  }
+
+  function handlePlayFlashcards(id) {
+    navigate(`/flashcards?deckId=${id}`);
   }
 
   async function fetchData() {
@@ -73,6 +80,7 @@ function Decks() {
             <table id="decks__table">
               <thead>
                 <tr>
+                  <th></th>
                   <th>Deck</th>
                   <th className="table__item--center">New</th>
                   <th className="table__item--center">Learn</th>
@@ -83,6 +91,20 @@ function Decks() {
               <tbody>
                 {decks.map((deck) => (
                   <tr key={deck.id}>
+                    <td>
+                      <Button
+                        className="play__button"
+                        onClick={() => {
+                          handlePlayFlashcards(deck.id);
+                        }}
+                        style={{
+                          padding: "8px 10px",
+                          fontSize: "14px",
+                        }}
+                      >
+                        <FaPlay />
+                      </Button>
+                    </td>
                     <td>
                       <Link to={`/cards?deckId=${deck.id}`}>{deck.topic}</Link>
                     </td>

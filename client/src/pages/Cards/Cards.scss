@@ -31,7 +31,9 @@
       margin-bottom: 2rem;
 
       &__options {
+        align-items: center;
         display: flex;
+        gap: 2px;
       }
     }
 
@@ -116,11 +118,19 @@
     text-align: left;
 
     &__input {
-      margin-bottom: 2rem;
+      margin-bottom: 14px;
+      padding: 0.7rem 0.5rem;
+      font-size: rem(10);
 
       @include breakpoint(medium) {
-        margin-bottom: 4rem;
+        margin-bottom: 10px;
+        font-size: rem(20);
       }
+
+    }
+
+    &__input:last-of-type {
+      margin-bottom: 4rem;
     }
 
     & textarea {
@@ -147,14 +157,14 @@
     &__bottom {
       position: absolute;
       right: 5%;
-      font-size: rem(10);
+      font-size: rem(12);
 
       @include breakpoint(medium) {
-        font-size: rem(12);
+        font-size: rem(14);
       }
 
       @include breakpoint(large) {
-        font-size: rem(14);
+        font-size: rem(16);
       }
     }
 

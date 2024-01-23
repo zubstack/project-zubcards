@@ -38,8 +38,8 @@ function CreateCardModal({ isOpen, onClose, fetchData, deckId }) {
       <form className="aside__form" ref={formRef} onSubmit={handleSubmit}>
         <label htmlFor="question">Front</label>
         <input
-          className="aside__form__input"
           type="text"
+          className="aside__form__input"
           name="question"
           id="question"
           onChange={({ target }) =>
@@ -48,9 +48,8 @@ function CreateCardModal({ isOpen, onClose, fetchData, deckId }) {
         />
         <label htmlFor="answer">Back</label>
         <input
-          size={4}
-          className="aside__form__input"
           type="text"
+          className="aside__form__input"
           name="answer"
           onChange={({ target }) =>
             setCardInfo({ ...cardInfo, answer: target.value })

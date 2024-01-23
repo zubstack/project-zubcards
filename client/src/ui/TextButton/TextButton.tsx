@@ -4,16 +4,16 @@ const colors = {
   red: "--red",
 };
 
-function TextButton({ children, onClick, color, disabled }) {
+function TextButton(props) {
   return (
     <button
-      onClick={onClick}
+      {...props}
       className={`text__button${
-        colors[color] ? ` text__button${colors[color]}` : ""
+        colors[props.color] ? ` text__button${colors[props.color]}` : ""
       }`}
-      disabled={disabled}
+      disabled={props.disabled}
     >
-      {children}
+      {props.children}
     </button>
   );
 }

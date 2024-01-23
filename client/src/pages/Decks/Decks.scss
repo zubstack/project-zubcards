@@ -14,21 +14,8 @@
     &__top {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 2rem;
-    }
-
-    &__top {
-      font-size: rem(18);
-
-
-      @include breakpoint(medium) {
-        font-size: rem(20);
-      }
-
-      @include breakpoint(large) {
-        font-size: rem(22);
-      }
-
     }
 
   }
@@ -49,7 +36,7 @@
   }
 
   @include breakpoint(large) {
-    font-size: rem(18);
+    font-size: rem(16);
   }
 
 
@@ -61,7 +48,7 @@
 
   & th,
   & td {
-    padding: 12px 15px;
+    padding: 10px 13px;
   }
 
   & tbody tr {
@@ -80,10 +67,17 @@
     font-weight: bold;
     color: $nav-bg-dark;
   }
+
+  & tbody tr td:first-of-type {
+    padding: 10px 4px;
+    text-align: center;
+  }
+
 }
 
 .table__item {
   &--center {
+    padding: 10px 20px;
     text-align: center;
   }
 
@@ -99,6 +93,7 @@
     color: rgb(0, 48, 161);
   }
 }
+
 
 // td,
 // th {

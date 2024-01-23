@@ -5,7 +5,7 @@ import endpoints from "../../services/api/endpoints";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import TextButton from "../../ui/TextButton/TextButton";
 import Button from "../../ui/Button/Button";
-import { FaPlay } from "react-icons/fa6";
+import { FaChevronLeft, FaPlay } from "react-icons/fa6";
 import CreateCardModal from "../../components/CreateCardModal/CreateCardModal";
 import { FaTrashAlt } from "react-icons/fa";
 
@@ -119,18 +119,18 @@ function Cards() {
     <main id="cards__main">
       <div className="container">
         <div className="container__top">
-          <h2>{currentDeck.topic}</h2>
           <div className="container__top__options">
-            <TextButton onClick={handleOpenCardsModal}>Add card</TextButton>
-            <Button
+            <TextButton
+              style={{ padding: "6px 0 0 0", margin: 0 }}
               onClick={() => {
-                navigate(`/flashcards?deckId=${currentDeck.id}`);
+                navigate("/decks");
               }}
             >
-              <FaPlay />
-              Play
-            </Button>
+              <FaChevronLeft />
+            </TextButton>
+            <h2>{currentDeck.topic}</h2>
           </div>
+          <TextButton onClick={handleOpenCardsModal}>Add card</TextButton>
         </div>
         <div className="table__container">
           {cards ? (
@@ -172,7 +172,6 @@ function Cards() {
         <form className="aside__form" onSubmit={handleEditCardSubmit}>
           <label htmlFor="question">Front</label>
           <textarea
-            type="text"
             name="question"
             id="question"
             value={formValues.question}
@@ -180,7 +179,6 @@ function Cards() {
           />
           <label htmlFor="answer">Back</label>
           <textarea
-            type="text"
             name="answer"
             id="answer"
             value={formValues.answer}
