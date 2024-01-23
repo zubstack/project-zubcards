@@ -14,6 +14,7 @@ const model = {
 const modelUpdate = {
   question: 'Yasuo',
   answer: 'Last Breath',
+  domain: 2,
 };
 
 const badModel = {
@@ -69,7 +70,7 @@ describe('Cards: Setters', () => {
     const non_existing_id = 999;
     await api.get(`${url}/${non_existing_id}`).expect(404);
     await api.delete(`${url}/${non_existing_id}`).expect(404);
-    await api.patch(`${url}/${non_existing_id}`).send(model).expect(404);
+    await api.patch(`${url}/${non_existing_id}`).send(modelUpdate).expect(404);
   });
 
   test('fails with 400 with no content', async () => {

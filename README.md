@@ -271,6 +271,7 @@ content-type: application/json
 {
   "question": "Jhin",
   "answer": "Curtain Call"
+  "domain": 3
 }
 ```
 
