@@ -1,5 +1,5 @@
 import "./Decks.scss";
-import { useEffect, useRef, useState } from "react";
+import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { RiSettings5Fill } from "react-icons/ri";
 import TextButton from "../../ui/TextButton/TextButton";
@@ -10,42 +10,54 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaPlay } from "react-icons/fa6";
 import Button from "../../ui/Button/Button";
 
+type DeckItems = {
+  id: number;
+  topic: string;
+  due: number;
+  new: number;
+  learn: number;
+};
+
 function Decks() {
-  const [decks, setDecks] = useState(null);
-  const [isDecksCreateModalOpen, setDecksCreateModalOpen] = useState(null);
-  const [editId, setEditId] = useState(null);
+  const [decks, setDecks] = useState<DeckItems[]>([]);
+  const [isDecksCreateModalOpen, setDecksCreateModalOpen] =
+    useState<boolean>(false);
+  const [editId, setEditId] = useState<number | null>(null);
 
   const navigate = useNavigate();
-  const optionsRef = useRef();
+  const optionsRef = useRef<HTMLDivElement>(null);
 
-  function handleToggle(event) {
-    if (!event.currentTarget.contains(optionsRef.current)) {
-      optionsRef.current?.classList.remove("options__menu--active");
-    }
+  const handleToggle: MouseEventHandler<HTMLDivElement> = (event) => {
     const clickedElement = event.currentTarget;
     const optionsMenu = clickedElement.querySelector(".options__menu");
-    optionsMenu.classList.toggle("options__menu--active");
-    optionsRef.current = optionsMenu;
-  }
+    if (!clickedElement.contains(optionsMenu)) {
+      optionsRef.current?.classList.remove("options__menu--active");
+    }
+    if (optionsMenu) {
+      optionsMenu.classList.toggle("options__menu--active");
+      //PENDING: Remake options to avoid the bad practice:
+      optionsRef.current = optionsMenu;
+    }
+  };
 
   function handleOpenDecksCreateModal() {
     setDecksCreateModalOpen(true);
   }
 
-  function closeOpenDecksCreateModal() {
+  function closeDecksCreateModal() {
     setDecksCreateModalOpen(false);
   }
 
-  function handleEdit(id) {
+  function handleEdit(id: number) {
     setEditId(id);
     handleOpenDecksCreateModal();
   }
-  async function handleDelete(id) {
+  async function handleDelete(id: number) {
     await axios.delete(endpoints.deleteDeck(id));
     await fetchData();
   }
 
-  function handlePlayFlashcards(id) {
+  function handlePlayFlashcards(id: number) {
     navigate(`/flashcards?deckId=${id}`);
   }
 
@@ -59,11 +71,15 @@ function Decks() {
   }
   useEffect(() => {
     fetchData();
-    document.addEventListener("mousedown", (event) => {
-      if (!optionsRef.current?.contains(event.target)) {
+    const handleDocumentClick: EventListener = ({ target }: Event) => {
+      if (!optionsRef.current?.contains(target as Node)) {
         optionsRef.current?.classList.remove("options__menu--active");
       }
-    });
+    };
+    document.addEventListener("mousedown", handleDocumentClick);
+    return () => {
+      document.removeEventListener("mousedown", handleDocumentClick);
+    };
   }, []);
 
   return (
@@ -141,7 +157,7 @@ function Decks() {
 
         <CreateDeckModal
           isOpen={isDecksCreateModalOpen}
-          onClose={closeOpenDecksCreateModal}
+          onClose={closeDecksCreateModal}
           fetchData={fetchData}
           editId={editId}
           setEditId={setEditId}
