@@ -1,8 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { DialogHTMLAttributes, useEffect, useRef, useState } from "react";
 import "./Modal.scss";
-function Modal({ isOpen, onClose, children }) {
+
+type ModalDialog = {
+  isOpen: boolean;
+};
+type DialogNative = DialogHTMLAttributes<HTMLDialogElement>;
+type ModalDialogProps = ModalDialog & DialogNative;
+
+function Modal({ isOpen, children }: ModalDialogProps) {
   const [isModalOpen, setModalOpen] = useState(isOpen);
-  const modalRef = useRef();
+  const modalRef = useRef<HTMLDialogElement>(null);
 
   // function handleCloseModal() {
   //   onClose();

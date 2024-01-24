@@ -2,21 +2,41 @@ import "./CreateDeckModal.scss";
 import Modal from "../Modal/Modal";
 import TextButton from "../../ui/TextButton/TextButton";
 import { useRef, useState } from "react";
+import type {
+  MouseEventHandler,
+  FormEventHandler,
+  FormEvent,
+  MouseEvent,
+} from "react";
 import axios from "axios";
 import endpoints from "../../services/api/endpoints";
 
-function CreateDeckModal({ isOpen, onClose, fetchData, editId, setEditId }) {
-  const [topic, setTopic] = useState("");
-  const formRef = useRef();
+type CreateDeckModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  fetchData: () => void;
+  editId: number | null;
+  setEditId: (value: null) => void;
+};
 
-  function handleCloseModal(ev) {
+function CreateDeckModal({
+  isOpen,
+  onClose,
+  fetchData,
+  editId,
+  setEditId,
+}: CreateDeckModalProps) {
+  const [topic, setTopic] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleCloseModal: MouseEventHandler = (ev: MouseEvent) => {
     ev.preventDefault();
     setTopic("");
     setEditId(null);
     onClose();
-  }
+  };
 
-  async function handleSubmit(ev) {
+  const handleSubmit: FormEventHandler = async (ev: FormEvent) => {
     ev.preventDefault();
     if (editId) {
       await axios.patch(
@@ -40,15 +60,15 @@ function CreateDeckModal({ isOpen, onClose, fetchData, editId, setEditId }) {
       );
     }
     formRef.current?.reset();
-    await fetchData();
-    handleCloseModal(ev);
-  }
+    fetchData();
+    handleCloseModal(ev as MouseEvent);
+  };
   //PENDING: Handle 'repeated topic' errors from backend
   //PENDING: Sort decks for 'created_at'
   //PENDING: Delete confirmation
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen}>
       <form
         action=""
         className="form__container"
