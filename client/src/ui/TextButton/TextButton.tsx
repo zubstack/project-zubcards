@@ -1,17 +1,23 @@
+import { ButtonHTMLAttributes } from "react";
 import "./TextButton.scss";
 
-const colors = {
+const colors: Record<string, string> = {
   red: "--red",
 };
 
-function TextButton(props) {
+type TextButton = {
+  color?: string;
+};
+type ButtonNative = ButtonHTMLAttributes<HTMLButtonElement>;
+type TextButtonProps = TextButton & ButtonNative;
+
+function TextButton({ color = "", ...props }: TextButtonProps) {
   return (
     <button
       {...props}
       className={`text__button${
-        colors[props.color] ? ` text__button${colors[props.color]}` : ""
+        colors[color] ? ` text__button${colors[color]}` : ""
       }`}
-      disabled={props.disabled}
     >
       {props.children}
     </button>
