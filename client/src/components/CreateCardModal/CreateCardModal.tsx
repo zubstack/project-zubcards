@@ -1,21 +1,44 @@
 import "./CreateCardModal.scss";
 import Modal from "../Modal/Modal";
 import TextButton from "../../ui/TextButton/TextButton";
-import { useRef, useState } from "react";
+import {
+  FormEventHandler,
+  MouseEventHandler,
+  MouseEvent,
+  useRef,
+  useState,
+} from "react";
 import axios from "axios";
 import endpoints from "../../services/api/endpoints";
 
-function CreateCardModal({ isOpen, onClose, fetchData, deckId }) {
-  const [cardInfo, setCardInfo] = useState({});
-  const formRef = useRef();
+type CreateCardModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  fetchData: () => void;
+  deckId: string | null;
+};
 
-  function handleCloseModal(ev) {
+type CardInfo = {
+  question?: string;
+  answer?: string;
+};
+
+function CreateCardModal({
+  isOpen,
+  onClose,
+  fetchData,
+  deckId,
+}: CreateCardModalProps) {
+  const [cardInfo, setCardInfo] = useState<CardInfo | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleCloseModal: MouseEventHandler = (ev) => {
     ev.preventDefault();
     setCardInfo(null);
     onClose();
-  }
+  };
 
-  async function handleSubmit(ev) {
+  const handleSubmit: FormEventHandler = async (ev) => {
     ev.preventDefault();
     await axios.post(
       endpoints.createCard,
@@ -27,14 +50,14 @@ function CreateCardModal({ isOpen, onClose, fetchData, deckId }) {
       },
     );
     formRef.current?.reset();
-    await fetchData();
-    handleCloseModal(ev);
-  }
+    fetchData();
+    handleCloseModal(ev as MouseEvent);
+  };
 
   //PENDING: Data validation
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen}>
       <form className="aside__form" ref={formRef} onSubmit={handleSubmit}>
         <label htmlFor="question">Front</label>
         <input

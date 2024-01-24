@@ -2,9 +2,24 @@ import { useState } from "react";
 import TextButton from "../../ui/TextButton/TextButton";
 import Modal from "../Modal/Modal";
 import "./PreviewModal.scss";
-import { FaChevronRight } from "react-icons/fa6";
-function PreviewModal({ isOpen, onClose, cards }) {
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+
+type CardValues = {
+  question: string;
+  answer: string;
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  domain: number;
+};
+
+type PreviewModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  cards: CardValues[];
+};
+
+function PreviewModal({ isOpen, onClose, cards }: PreviewModalProps) {
+  const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
 
   function handleNext() {
     setCurrentCardIndex((prev) => (prev += 1));

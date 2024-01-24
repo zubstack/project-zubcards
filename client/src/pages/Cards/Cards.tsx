@@ -1,32 +1,55 @@
-import { useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  FormEventHandler,
+  useEffect,
+  useState,
+} from "react";
 import "./Cards.scss";
 import axios from "axios";
 import endpoints from "../../services/api/endpoints";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import TextButton from "../../ui/TextButton/TextButton";
-import Button from "../../ui/Button/Button";
-import { FaChevronLeft, FaPlay } from "react-icons/fa6";
+import { FaChevronLeft } from "react-icons/fa6";
 import CreateCardModal from "../../components/CreateCardModal/CreateCardModal";
 import { FaTrashAlt } from "react-icons/fa";
 import PreviewModal from "../../components/PreviewModal/PreviewModal";
 
-function Cards() {
-  const [cards, setCards] = useState([]);
-  const [currentDeck, setCurrentDeck] = useState(null);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [isCardsCreateModalOpen, setCardsCreateModalOpen] = useState(null);
-  const [isCardsPreviewModalOpen, setCardsPreviewModalOpen] = useState(null);
+type CardValues = {
+  question: string;
+  answer: string;
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  domain: number;
+};
 
-  const [selectedCard, setSelectedCard] = useState([]);
-  const [formValues, setFormValues] = useState({
+type DeckValues = {
+  topic: string;
+};
+
+type FormValues = {
+  question: string;
+  answer: string;
+  deckId: number;
+};
+
+function Cards() {
+  const [cards, setCards] = useState<CardValues[]>([]);
+  const [currentDeck, setCurrentDeck] = useState<DeckValues | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [isCardsCreateModalOpen, setCardsCreateModalOpen] = useState(false);
+  const [isCardsPreviewModalOpen, setCardsPreviewModalOpen] = useState(false);
+  const [isFormDirty, setIsFormDirty] = useState(false);
+  const [formValues, setFormValues] = useState<FormValues>({
     question: "",
     answer: "",
     deckId: 0,
   });
-  const [isFormDirty, setIsFormDirty] = useState(false);
   const navigate = useNavigate();
 
-  const deckId = searchParams.get("deckId");
+  const deckId: string | null = searchParams.get("deckId");
+
   async function fetchData() {
     const { data } = await axios.get(endpoints.getCardsFromDeck(deckId));
     setCurrentDeck(data.deck);
@@ -39,9 +62,6 @@ function Cards() {
   useEffect(() => {
     function initialSetUp() {
       if (cards.length > 0) {
-        // console.log("we have cards", cards[0]);
-        setSelectedCard(cards[0]);
-
         setFormValues({
           question: cards[0].question,
           answer: cards[0].answer,
@@ -66,7 +86,7 @@ function Cards() {
     setCardsPreviewModalOpen(false);
   }
 
-  function handleRowFocus(card) {
+  function handleRowFocus(card: CardValues) {
     setIsFormDirty(false);
     setFormValues({
       ...formValues,
@@ -75,11 +95,13 @@ function Cards() {
       deckId: card.id,
     });
   }
-  function handleFormChanges({ target }) {
+  const handleFormChanges: ChangeEventHandler = ({
+    target,
+  }: ChangeEvent<HTMLInputElement>) => {
     setFormValues({ ...formValues, [target.name]: target.value });
     setIsFormDirty(true);
-  }
-  async function handleEditCardSubmit(ev) {
+  };
+  const handleEditCardSubmit: FormEventHandler = async (ev) => {
     ev.preventDefault();
     console.log("formValues", formValues);
     await axios.patch(
@@ -93,11 +115,11 @@ function Cards() {
     );
     fetchData();
     setIsFormDirty(false);
-  }
-  async function handleDeleteCard(id) {
+  };
+  const handleDeleteCard = async (id: number) => {
     await axios.delete(endpoints.deleteCard(id));
     fetchData();
-  }
+  };
 
   if (!currentDeck) return <div>No decks to show</div>;
 
@@ -138,8 +160,11 @@ function Cards() {
                     <td>{card.createdAt}</td>
                     <td>{card.updatedAt}</td>
                     <td>
-                      <div className="hover_options">
-                        <FaTrashAlt onClick={() => handleDeleteCard(card.id)} />
+                      <div
+                        className="hover_options"
+                        onClick={() => handleDeleteCard(card.id)}
+                      >
+                        <FaTrashAlt />
                       </div>
                     </td>
                   </tr>
