@@ -4,14 +4,24 @@ import endpoints from "../../services/api/endpoints";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import TextButton from "../../ui/TextButton/TextButton";
+
+type CardValues = {
+  question: string;
+  answer: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  domain: number;
+};
+
 function Flashcards() {
-  const [cards, setCards] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [cards, setCards] = useState<CardValues[]>([]);
+  const [searchParams] = useSearchParams();
   const [showAnswer, setShowAnwser] = useState(false);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const navigate = useNavigate();
 
-  const deckId = searchParams.get("deckId");
+  const deckId = searchParams.get("deckId") as string;
   async function fetchData() {
     const { data } = await axios.get(endpoints.getCardsFromDeck(deckId));
     setCards(data.cards);
@@ -25,7 +35,7 @@ function Flashcards() {
     setShowAnwser(!showAnswer);
   }
 
-  async function handleAnswerRate(rate) {
+  async function handleAnswerRate(rate: number) {
     handleToggleShowAnswer();
     setCurrentCardIndex((prev) => (prev += 1));
     await axios.patch(

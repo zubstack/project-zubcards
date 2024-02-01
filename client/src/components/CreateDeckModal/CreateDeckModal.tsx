@@ -15,7 +15,7 @@ type CreateDeckModalProps = {
   isOpen: boolean;
   onClose: () => void;
   fetchData: () => void;
-  editId: number | null;
+  editId: string | null;
   setEditId: (value: null) => void;
 };
 

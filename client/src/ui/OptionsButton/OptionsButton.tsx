@@ -1,5 +1,14 @@
+import { ButtonHTMLAttributes } from "react";
 import "./OptionsButton.scss";
-function OptionsButton({ children, onClick }) {
+
+type OptionsButton = {
+  onClick: () => void;
+};
+
+type ButtonNative = ButtonHTMLAttributes<HTMLButtonElement>;
+type OptionsButtonProps = ButtonNative & OptionsButton;
+
+function OptionsButton({ children, onClick }: OptionsButtonProps) {
   return (
     <button onClick={onClick} className="options__button">
       {children}

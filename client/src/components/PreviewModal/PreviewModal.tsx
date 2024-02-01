@@ -6,7 +6,7 @@ import "./PreviewModal.scss";
 type CardValues = {
   question: string;
   answer: string;
-  id: number;
+  id: string;
   createdAt: string;
   updatedAt: string;
   domain: number;

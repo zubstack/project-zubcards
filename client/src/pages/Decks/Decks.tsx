@@ -11,7 +11,7 @@ import { FaPlay } from "react-icons/fa6";
 import Button from "../../ui/Button/Button";
 
 type DeckItems = {
-  id: number;
+  id: string;
   topic: string;
   due: number;
   new: number;
@@ -22,7 +22,7 @@ function Decks() {
   const [decks, setDecks] = useState<DeckItems[]>([]);
   const [isDecksCreateModalOpen, setDecksCreateModalOpen] =
     useState<boolean>(false);
-  const [editId, setEditId] = useState<number | null>(null);
+  const [editId, setEditId] = useState<string | null>(null);
 
   const navigate = useNavigate();
   const optionsRef = useRef<HTMLDivElement>(null);
@@ -48,16 +48,16 @@ function Decks() {
     setDecksCreateModalOpen(false);
   }
 
-  function handleEdit(id: number) {
+  function handleEdit(id: string) {
     setEditId(id);
     handleOpenDecksCreateModal();
   }
-  async function handleDelete(id: number) {
+  async function handleDelete(id: string) {
     await axios.delete(endpoints.deleteDeck(id));
     await fetchData();
   }
 
-  function handlePlayFlashcards(id: number) {
+  function handlePlayFlashcards(id: string) {
     navigate(`/flashcards?deckId=${id}`);
   }
 

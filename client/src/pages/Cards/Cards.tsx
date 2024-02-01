@@ -18,7 +18,7 @@ import PreviewModal from "../../components/PreviewModal/PreviewModal";
 type CardValues = {
   question: string;
   answer: string;
-  id: number;
+  id: string;
   createdAt: string;
   updatedAt: string;
   domain: number;
@@ -31,24 +31,24 @@ type DeckValues = {
 type FormValues = {
   question: string;
   answer: string;
-  deckId: number;
+  deckId: string;
 };
 
 function Cards() {
   const [cards, setCards] = useState<CardValues[]>([]);
   const [currentDeck, setCurrentDeck] = useState<DeckValues | null>(null);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [isCardsCreateModalOpen, setCardsCreateModalOpen] = useState(false);
   const [isCardsPreviewModalOpen, setCardsPreviewModalOpen] = useState(false);
   const [isFormDirty, setIsFormDirty] = useState(false);
   const [formValues, setFormValues] = useState<FormValues>({
     question: "",
     answer: "",
-    deckId: 0,
+    deckId: "0",
   });
   const navigate = useNavigate();
 
-  const deckId: string | null = searchParams.get("deckId");
+  const deckId: string = searchParams.get("deckId") as string;
 
   async function fetchData() {
     const { data } = await axios.get(endpoints.getCardsFromDeck(deckId));
@@ -116,7 +116,7 @@ function Cards() {
     fetchData();
     setIsFormDirty(false);
   };
-  const handleDeleteCard = async (id: number) => {
+  const handleDeleteCard = async (id: string) => {
     await axios.delete(endpoints.deleteCard(id));
     fetchData();
   };
