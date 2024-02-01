@@ -1,6 +1,8 @@
 @use '../../styles/globals/' as *;
 @use '../../styles/utils/' as *;
 
+
+
 #logo {
   flex: 1;
   font-weight: bold;
@@ -57,13 +59,21 @@ nav {
 .dropdown {
   &__icon {
     background-color: $white;
-    color: $nav-bg-dark;
     border-radius: 50%;
-    padding: rem(2);
-    font-size: rem(40);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: rem(6);
+    font-size: rem(20);
     transition: .3s ease-in;
     position: relative;
     cursor: pointer;
+
+    @include breakpoint(medium) {
+      font-size: rem(24);
+    }
+
+
   }
 
   &__icon:hover {

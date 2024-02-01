@@ -4,12 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Nav() {
-  const [openToggle, setOpenToggle] = useState(null);
-  const menuRef = useRef();
+  const [openToggle, setOpenToggle] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     document.addEventListener("mousedown", (e) => {
-      if (!menuRef.current.contains(e.target)) {
-        setOpenToggle(false);
+      if (menuRef.current) {
+        if (!menuRef.current.contains(e.target as Node)) {
+          setOpenToggle(false);
+        }
       }
     });
   }, []);
@@ -24,10 +26,12 @@ function Nav() {
         </li>
         <li>
           <div className="dropdown flex" ref={menuRef}>
-            <FaUserLarge
-              onClick={(): void => setOpenToggle(!openToggle)}
-              className={"dropdown__icon"}
-            />
+            <div
+              onClick={() => setOpenToggle(!openToggle)}
+              className="dropdown__icon"
+            >
+              <FaUserLarge />
+            </div>
 
             <ul
               className={`dropdown__menu ${
